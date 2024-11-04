@@ -198,16 +198,16 @@ Podemos obtener una aproximación directa a partir de datos:
 #| echo: true
 options(scipen = 999)
 # Librerías de trabajo
-#install.packages("tidyverse")
+install.packages("tidyverse")
 library(dplyr) # Manipulación 
 library(tidyr) # Manipulación 
 library(ggplot2) # Visualización de datos 
 library(broom) # Para manipular objetos
 
-#install.packages("AER")
+install.packages("AER")
 library(AER) # Contiene los datos 
 
-#install.packages("texreg")
+install.packages("texreg")
 library(texreg) # Contiene los datos 
 
 # Extraemos los datos 
