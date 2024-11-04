@@ -32,28 +32,60 @@ abstract: "[Click al repositorio](https://github.com/JDConejeros/MIMIS-WKs2024.g
 
 ## ¿Qué es la inferencia causal? 
 
-Podemos entender la inferencia causal como el interés por estimar el efecto de los acontencimientos y las decisiones sobre un resultado de interés determinado. Para esto usamos: 
+Podemos entender la inferencia causal como el interés por estimar el efecto de los acontencimientos y las decisiones sobre un resultado de interés determinado. 
+
+Algunos ejemplos: 
+
+![](images/S1/zubizarreta.png){width="700" height="700" fig-align="center"}
+
+[Zubizarreta, J. R., Cerdá, M., & Rosenbaum, P. R. (2013). Effect of the 2010 Chilean earthquake on posttraumatic stress: reducing sensitivity to unmeasured bias through study design. Epidemiology, 24(1), 79-87.](https://pubmed.ncbi.nlm.nih.gov/23222557/)
+
+
+![](images/S1/torche.png){width="700" height="700" fig-align="center"}
+
+[Torche, F. (2011). The effect of maternal stress on birth outcomes: exploiting a natural experiment. Demography, 48, 1473-1491.](https://pubmed.ncbi.nlm.nih.gov/21870187/)
+
+![](images/S1/muralidharan.png){width="700" height="700" fig-align="center"}
+
+[Muralidharan, K., Singh, A., & Ganimian, A. J. (2019). Disrupting education? Experimental evidence on technology-aided instruction in India. American Economic Review, 109(4), 1426-1460.](https://www.aeaweb.org/articles?id=10.1257/aer.20171112)
+
+**Fundamental** 
 
 - Datos: **¿Cuál es la estrategia de identificación?** 
 
 - Supuestos: **¿Cuáles son los supuestos que sustentan la causalidad en un estudio?**
 
-Algunos ejemplos: 
-
-![](images/S1/zubizarreta.png){width="600" height="700" fig-align="center"}
-
-[Zubizarreta, J. R., Cerdá, M., & Rosenbaum, P. R. (2013). Effect of the 2010 Chilean earthquake on posttraumatic stress: reducing sensitivity to unmeasured bias through study design. Epidemiology, 24(1), 79-87.](https://pubmed.ncbi.nlm.nih.gov/23222557/)
-
-
-![](images/S1/torche.png){width="600" height="700" fig-align="center"}
-
-[Torche, F. (2011). The effect of maternal stress on birth outcomes: exploiting a natural experiment. Demography, 48, 1473-1491.](https://pubmed.ncbi.nlm.nih.gov/21870187/)
-
-![](images/S1/muralidharan.png){width="600" height="700" fig-align="center"}
-
-[Muralidharan, K., Singh, A., & Ganimian, A. J. (2019). Disrupting education? Experimental evidence on technology-aided instruction in India. American Economic Review, 109(4), 1426-1460.](https://www.aeaweb.org/articles?id=10.1257/aer.20171112)
+Sin embargo, tendremos algunos inconvenientes...
 
 ## Problema fundamental de la inferencia causal
+
+Considere una población de $i$ unidades potencialmente expuestas a un tratamiento (causa) o control. La variable $D_i$ nos indicará si la unidad $i$ fue tratada ($D_i=t$) o no tratada, o sea control, ($D_i=c$).
+
+Nos interesa evaluar el efecto sobre una variable de respuesta observada que denotaremos como $Y_i$ con dos respuestas potenciales: 
+
+- $Y_i(t)$ si la unidad fue tratada 
+- $Y_i(c)$ en caso contrario 
+
+Dado que $Y_i$ mide el efecto de la causa, entonces, los valores de $Y_i$ son posteriores a la exposición del tratamiento.
+
+A su vez, denotamos que el modelo causal del tratamiento en una unidad $i$ puede ser expresado como:
+
+$$\tau_i=Y_i(t)-Y_i(c)$$
+
+Lo interesante del modelo Neyman-Rubin es que el valor de $D_i$ para cada unidad $i$ podría haber sido distinto. Este es el problema.
+
+::: {.callout-important title="Problema fundamental de la inferencia causal"}
+La imposibilidad de observar una variable de respuesta $Y_i$ en la misma unidad y al mismo tiempo para dos condiciones diferentes: $Y_i(t)$ y $Y_i(c)$.
+:::
+
+![](images/S1/w_if.png){width="700" height="700" fig-align="center"}
+![](images/S1/bart.png){width="700" height="700" fig-align="center"}
+
+Graficamente: 
+
+![](images/S1/plot.png){width="700" height="700" fig-align="center"}
+
+**¿Qué se puede hacer?**
 
 ## *Average Treatment Effect* (ATE)
 
