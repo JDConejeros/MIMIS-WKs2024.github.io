@@ -5,7 +5,7 @@ author:
   - José Conejeros <br> <jose.conejeros1@mail.udp.cl>
 date: last-modified
 date-format: 'dddd DD [de] MMMM, YYYY'
-last-modified:
+last-modified: true
 title-block-banner: true
 format: 
   html:

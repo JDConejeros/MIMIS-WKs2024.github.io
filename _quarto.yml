@@ -17,7 +17,9 @@ lang: es
 
 format:
   html:
-    theme: zephyr # cosmo
+    theme: #cosmo
+      dark: darkly
+      light: flatly
     css: styles.css
     toc: true
 
