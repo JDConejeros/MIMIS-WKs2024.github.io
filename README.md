@@ -2,7 +2,7 @@
 
 ## Magíster en Métodos para la Investigación Social 2024: Aproximaciones a la inferencia causal en ciencias sociales
 
-**José Conejeros** (:mailbox_with_no_mail: [jose.conejeros1@mail.udp.cl](jose.conejeros1@mail.udp.cl)) 
+**José Conejeros** ( :mailbox_with_no_mail: [jose.conejeros1@mail.udp.cl](jose.conejeros1@mail.udp.cl)) 
 Docente UDP e Investigador joven de la Escuela de Gobierno UC. 
 
 Este taller analiza las dificultades para estimar efectos causales en ciencias sociales y se introducen estrategias para abordar la causalidad mediante diseños experimentales y cuasi-experimentales. 
@@ -10,12 +10,15 @@ Este taller analiza las dificultades para estimar efectos causales en ciencias s
 Tendremos tres sesiones: 
 
 :pushpin: Sesión 1: **Problema fundamental de la inferencia causal y repaso de regresión lineal**. 
+
 Lunes 04/11 de 18:00 – 20:30 hrs
 
 :pushpin: Sesión 2: **Diseños experimentales: aleatorización, diseño de bloques y cálculos de poder**. 
+
 Lunes 04/11 de 18:00 – 20:30 hrs
 
 :pushpin: Sesión 3: **Técnicas con datos observacionales: matching y variables instrumentales**. 
+
 Lunes 04/11 de 18:00 – 20:30 hrs
 
 ## Referencias 

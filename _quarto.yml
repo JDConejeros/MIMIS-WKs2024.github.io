@@ -2,12 +2,16 @@ project:
   type: website
 
 website:
-  title: "MIMIS-WKs2024.github.io"
+  title: "MIMIS Workshop 2024"
   navbar:
     left:
       - href: index.qmd
-        text: Home
-      - about.qmd
+        text: Sesión 1
+      - href: S1.qmd
+        text: Sesión 2
+      - href: S2.qmd
+        text: Sesión 3
+      - href: S3.qmd
 
 format:
   html:

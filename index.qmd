@@ -1,6 +1,10 @@
 ---
 title: "Ciclo de Talleres Metodológicos Virtuales"
 subtitle: "Magíster en Métodos para la Investigación Social 2024"
+author: 
+  - José Conejeros <br> <jose.conejeros1@mail.udp.cl>
+date: last-modified
+date-format: 'dddd DD [de] MMMM, YYYY'
 ---
 
 ## Aproximaciones a la inferencia causal en ciencias sociales

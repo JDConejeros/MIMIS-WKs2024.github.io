@@ -1,0 +1,33 @@
+---
+title: "Inferencia Causal en Ciencias Sociales"
+subtitle: "Magíster en Métodos para la Investigación Social 2024"
+author: 
+  - José Conejeros <br> <jose.conejeros1@mail.udp.cl>
+date: last-modified
+date-format: 'dddd DD [de] MMMM, YYYY'
+last-modified:
+title-block-banner: true
+format: 
+  html:
+    #css: "files/style.css"
+    page-layout: full
+    embed-resources: true
+    smooth-scroll: true
+    fontcolor: black
+    toc: true
+    toc-location: left
+    toc-title: Indice
+    code-copy: true
+    code-link: true
+    code-fold: show
+    code-tools: true
+    code-summary: "Click para ver el código"
+    anchor-sections: true
+    code-overflow: wrap
+    fig-cap-location: top
+lang: es
+abstract-title: "Facultad de Ciencias Sociales e Historia UDP"
+abstract: "[Click al repositorio](https://github.com/JDConejeros/MIMIS-WKs2024.github.io)"
+---
+
+# Título 
