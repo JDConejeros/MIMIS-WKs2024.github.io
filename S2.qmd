@@ -10,7 +10,7 @@ title-block-banner: true
 format: 
   html:
     #css: "files/style.css"
-    page-layout: full
+    #page-layout: full
     embed-resources: true
     smooth-scroll: true
     fontcolor: black

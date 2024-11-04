@@ -2,10 +2,11 @@ project:
   type: website
 
 website:
-  title: "MIMIS Workshop 2024"
+  title: ""
   navbar:
     left:
       - href: index.qmd
+        text: MIMIS Workshop 2024
       - href: S1.qmd
         text: Sesión 1
       - href: S2.qmd
