@@ -112,7 +112,7 @@ Adaptado de [Broockman, D. E., Kalla, J. L., & Sekhon, J. S. (2017). The design 
 
 Si $Y_{i}(D_i)$ es una variable de respuesta observada cuyo valor puede ser $D_i=1$ para $Y_{i}(t)$ o $D_i=0$ para $Y_{i}(c)$, entonces: 
 
-+ **Independencia**: la asignación al tratamiento es independiente de la variable resultado para tratados ($Y_{i}(t)$) y controles ($Y_{i}(c)$), y de cualquier otra variable en la población, formalmente queda expresado de la siguiente manera: 
+**Independencia**: la asignación al tratamiento es independiente de la variable resultado para tratados ($Y_{i}(t)$) y controles ($Y_{i}(c)$), y de cualquier otra variable en la población, formalmente queda expresado de la siguiente manera: 
 $$(Y_{i}(t), Y_{i}(c)) \perp D_{i}$$
 En otras palabras:
 
@@ -130,13 +130,13 @@ En consecuencia la asignación al grupo de tratamiento o control no incide sobre
 $$\frac{1}{N}\sum_{i=1}^{N} Y_{i}(t) - \frac{1}{N}\sum_{i=1}^{N} Y_{i}(c)$$
 
 
-+ **Restricción de exclusión**:  los resultados del experimento dependen únicamente de la exposición al tratamiento $(D_{i}=1)$ y no de la asignación entre grupo de tratamiento y control. En términos formales nos permite identificar el efecto causal. En definitiva se espera que todos los individuos asignados al tratamiento sean expuestos al estímulo, a su vez, los asignados al grupo de control no son expuestos al estímulo:
+**Restricción de exclusión**:  los resultados del experimento dependen únicamente de la exposición al tratamiento $(D_{i}=1)$ y no de la asignación entre grupo de tratamiento y control. En términos formales nos permite identificar el efecto causal. En definitiva se espera que todos los individuos asignados al tratamiento sean expuestos al estímulo, a su vez, los asignados al grupo de control no son expuestos al estímulo:
 $$Y_{i}(1,d) = Y_{i}(0,d)$$
 
 
-+ **Stable-unit-treatment assumption (SUTVA)**: no hay interferencia (*spillovers*) en la respuesta al tratamiento de un individuo en comparación a otro. En otras palabras, si la observación $i$ se expone al tratamiento $t$, el valor de la variable resultado $Y$ se mantendrá igual sin importar el tipo de asignación ni el tipo de tratamiento que reciban las otras observaciones $i$ (sería problemático que la asignación del seguro a un individuo afectara el resultado de salud en otro individuo). Esto nos garantiza de que **solo existan dos respuestas** ante la condición de tratamiento (asignación), independiente de las otras unidades. Por lo tanto, podemos estimar la causalidad como al diferencia en la variable resultado para el grupo de tratamiento y el grupo de control.
+**Stable-unit-treatment assumption (SUTVA)**: no hay interferencia (*spillovers*) en la respuesta al tratamiento de un individuo en comparación a otro. En otras palabras, si la observación $i$ se expone al tratamiento $t$, el valor de la variable resultado $Y$ se mantendrá igual sin importar el tipo de asignación ni el tipo de tratamiento que reciban las otras observaciones $i$ (sería problemático que la asignación del seguro a un individuo afectara el resultado de salud en otro individuo). Esto nos garantiza de que **solo existan dos respuestas** ante la condición de tratamiento (asignación), independiente de las otras unidades. Por lo tanto, podemos estimar la causalidad como al diferencia en la variable resultado para el grupo de tratamiento y el grupo de control.
 
-![](images/S1/treat_control2.png){width="500" height="700" fig-align="center"}
+![](images/S1/treat_control2.png){width="500" height="550" fig-align="center"}
 
 Adaptado de [Broockman, D. E., Kalla, J. L., & Sekhon, J. S. (2017). The design of field experiments with survey outcomes: A framework for selecting more efficient, robust, and ethical designs. Political Analysis, 25(4), 435-464.](https://gregoryeady.com/ResearchMethodsCourse/assets/readings/Broockman,%20David%20E.%20et%20al.%20-%202017%20-%20The%20Design%20of%20Field%20Experiments%20with%20Survey%20Outcomes.pdf)
 
