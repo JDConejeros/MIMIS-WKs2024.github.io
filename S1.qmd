@@ -198,10 +198,11 @@ Podemos obtener una aproximación directa a partir de datos:
 #| echo: true
 options(scipen = 999)
 # Librerías de trabajo
-install.packages("tidyverse")
+install.packages("dplyr")
 library(dplyr) # Manipulación 
+install.packages("tidyr")
 library(tidyr) # Manipulación 
-library(ggplot2) # Visualización de datos 
+install.packages("broom")
 library(broom) # Para manipular objetos
 install.packages("Matrix")
 library(Matrix)
@@ -227,7 +228,7 @@ Vamos a trabajar con una versión sencilla de estos datos:
 #| echo: true
 # Procesamos los datos
 STAR <- STAR %>% 
-  tidyr::drop_na(stark, readk, mathk) %>% 
+  tidyr::drop_na(readk, mathk) %>% 
   mutate(str=if_else(stark=="small", 1, 0)) %>% 
   rowwise() %>% 
   mutate(tscorek=(readk + mathk)) %>% 
