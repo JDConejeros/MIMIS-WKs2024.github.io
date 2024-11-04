@@ -2,12 +2,11 @@
 
 ## Magíster en Métodos para la Investigación Social 2024: Aproximaciones a la inferencia causal en ciencias sociales
 
-**José Conejeros** ( :mailbox_with_no_mail: [jose.conejeros1@mail.udp.cl](jose.conejeros1@mail.udp.cl)) 
-Docente UDP e Investigador joven de la Escuela de Gobierno UC. 
+**José Conejeros**, :mailbox_with_no_mail: [jose.conejeros1@mail.udp.cl](jose.conejeros1@mail.udp.cl). Docente UDP e Investigador joven de la Escuela de Gobierno UC. 
 
 Este taller analiza las dificultades para estimar efectos causales en ciencias sociales y se introducen estrategias para abordar la causalidad mediante diseños experimentales y cuasi-experimentales. 
 
-Tendremos tres sesiones: 
+Tendremos tres sesiones: <https://jdconejeros.github.io/MIMIS-WKs2024.github.io/S1.html>
 
 :pushpin: Sesión 1: **Problema fundamental de la inferencia causal y repaso de regresión lineal**. 
 
@@ -31,7 +30,7 @@ Gerber, A. S. y D. P. Green (2012). Field Experiments: Design, Analysis, and Int
 
 Huntington-Klein, N. (2021). The effect: An introduction to research design and causality. Chapman and Hall/CRC. Versión en inglés: <https://theeffectbook.net/index.html>
 
-Pearl, J., & Mackenzie, D. (2018). The book of why: the new science of cause and effect. Basic books. Lo puede encontrar [aquí].(http://repo.darmajaya.ac.id/5342/1/The%20book%20of%20why_%20the%20new%20science%20of%20cause%20and%20effect%20%28%20PDFDrive%20%29.pdf)
+Pearl, J., & Mackenzie, D. (2018). The book of why: the new science of cause and effect. Basic books. Lo puede encontrar [aquí](http://repo.darmajaya.ac.id/5342/1/The%20book%20of%20why_%20the%20new%20science%20of%20cause%20and%20effect%20%28%20PDFDrive%20%29.pdf)
 
 Stock, J. and Watson, M., Introduction to Econometrics, 3rd edition. (Disponible en Biblioteca SJ-UC).
 

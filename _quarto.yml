@@ -6,12 +6,13 @@ website:
   navbar:
     left:
       - href: index.qmd
-        text: Sesión 1
       - href: S1.qmd
-        text: Sesión 2
+        text: Sesión 1
       - href: S2.qmd
-        text: Sesión 3
+        text: Sesión 2
       - href: S3.qmd
+        text: Sesión 1
+lang: es    
 
 format:
   html:
