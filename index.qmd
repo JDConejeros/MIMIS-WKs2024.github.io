@@ -1,5 +1,5 @@
 ---
-title: "Descripción"
+title: "MIMIS Workshop 2024"
 author: 
   - José Conejeros <br> <jose.conejeros1@mail.udp.cl>
 date: last-modified
