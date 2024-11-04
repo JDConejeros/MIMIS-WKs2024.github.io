@@ -11,12 +11,14 @@ website:
       - href: S2.qmd
           text: Sesión 2
       - href: S3.qmd
-          text: Sesión 1
+          text: Sesión 3
 lang: es    
 
 format:
   html:
     theme: cosmo
+      light: flatly
+      dark: darkly
     css: styles.css
     toc: true
 
