@@ -203,6 +203,7 @@ library(dplyr) # Manipulación
 library(tidyr) # Manipulación 
 library(ggplot2) # Visualización de datos 
 library(broom) # Para manipular objetos
+install.packages("Matrix")
 
 install.packages("AER")
 library(AER) # Contiene los datos 
