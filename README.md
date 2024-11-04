@@ -6,6 +6,8 @@
 
 Este taller analiza las dificultades para estimar efectos causales en ciencias sociales y se introducen estrategias para abordar la causalidad mediante diseños experimentales y cuasi-experimentales. 
 
+Requisitos: conocimientos básicos de test de hipótesis, regresión lineal y programación en `R`.
+
 Tendremos tres sesiones: <https://jdconejeros.github.io/MIMIS-WKs2024.github.io/S1.html>
 
 :pushpin: Sesión 1: **Problema fundamental de la inferencia causal y repaso de regresión lineal**. 

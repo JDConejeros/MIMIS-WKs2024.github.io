@@ -160,7 +160,7 @@ Pensemos dos escenarios, **¿podemos identificar el efecto?**
 
 En muchos estudios e investigaciones, es fácil observar una correlación entre dos variables, como la acción del hombre dentro del vehículo y el movimiento de este, pero eso no significa que una variable cause la otra. La causalidad implica un mecanismo claro que conecta las variables de manera que una provoque la otra, como las personas empujando el vehículo desde fuera.
 
-![](images/S1/causa_efecto.png){width="500" height="550" fig-align="center"}
+![](images/S1/causa_efecto.png){width="600" height="550" fig-align="center"}
 
 La pregunta de fondo es **¿la correlación observada es causal?**
 
@@ -175,7 +175,7 @@ Dos condiciones necesarias:
 
 Si las condiciones 1 y 2 se cumplen entonces: Causalidad $=$ Asociación:
 
-![](images/S1/causa_asociacion.png){width="500" height="550" fig-align="center"}
+![](images/S1/causa_asociacion.png){width="600" height="450" fig-align="center"}
 
 Pensemos en algunas relaciones:
 
@@ -186,6 +186,139 @@ Pensemos en algunas relaciones:
 
 El concepto clave para responder estas preguntas sobre causalidad es el de **contrafactual o contrafáctico** ¿Qué hubiese pasado en ausencia del tratamiento? El escenario ideal es poder comparar el resultado cuando ocurre y cuando no ocurre.
 
-## Aproximación al ATE vía regresión lineal 
+## Aproximación al ATE vía regresión lineal
 
+### Aproximación clásica
+
+Podemos obtener una aproximación directa a partir de datos: 
+
+```{r}
+#| warning: false
+#| message: false
+#| echo: true
+options(scipen = 999)
+# Librerías de trabajo
+#install.packages("tidyverse")
+library(dplyr) # Manipulación 
+library(tidyr) # Manipulación 
+library(ggplot2) # Visualización de datos 
+library(broom) # Para manipular objetos
+
+#install.packages("AER")
+library(AER) # Contiene los datos 
+
+#install.packages("texreg")
+library(texreg) # Contiene los datos 
+
+# Extraemos los datos 
+data(STAR)
+glimpse(STAR)
+```
+
+El conjunto de datos del Project STAR (Student/Teacher Achievement Ratio) proviene de un estudio longitudinal de cuatro años financiado por la Asamblea General de Tennessee y llevado a cabo a fines de la década de 1980 por el Departamento de Educación del Estado. Este estudio incluyó a más de 5,000 estudiantes de 79 escuelas, asignados aleatoriamente a una de tres intervenciones: clases pequeñas (13 a 17 estudiantes por maestro), clases regulares (22 a 25 estudiantes por maestro), y clases regulares con asistente (22 a 25 estudiantes con un asistente de maestro a tiempo completo). Los docentes también fueron asignados aleatoriamente a los grupos que enseñarían. Las intervenciones comenzaron cuando los estudiantes ingresaron al jardín de infancia y continuaron hasta el tercer grado. Stock y Watson (2007) obtuvieron este conjunto de datos del sitio web del Project STAR.
+
+Vamos a trabajar con una versión sencilla de estos datos: 
+
+```{r}
+#| warning: false
+#| message: false
+#| echo: true
+# Procesamos los datos
+STAR <- STAR %>% 
+  tidyr::drop_na(stark, readk, mathk) %>% 
+  mutate(str=if_else(stark=="small", 1, 0)) %>% 
+  rowwise() %>% 
+  mutate(tscorek=(readk + mathk)) %>% 
+  select(str, tscorek, readk, mathk)
+
+# Veamos los datos
+glimpse(STAR)
+```
+Si consideramos la definición: 
+
+$$
+\begin{align}
+   ATE & = E[\delta_i] \nonumber      \\
+       & = E[Y_i(t) - Y_i(t)] \nonumber \\
+       & = E[Y_i(t)] - E[Y_i(c)]        
+\end{align}
+$$
+Podemos programar esto: 
+
+```{r}
+#| warning: false
+#| message: false
+#| echo: true
+# Definimos la función 
+estimador_ATE <- function(data, tratamiento, variable_resultado) {
+  # Calcular la media del resultado para el grupo tratado
+  Yt <- mean(data[[variable_resultado]][data[[tratamiento]] == 1], na.rm = TRUE)
+  
+  # Calcular la media del resultado para el grupo de control
+  Yc <- mean(data[[variable_resultado]][data[[tratamiento]] == 0], na.rm = TRUE)
+  
+  # Calcular el ATE
+  ATE <- Yt - Yc
+  
+  # Devolver el ATE
+  return(ATE)
+}
+```
+
+```{r}
+#| warning: false
+#| message: false
+#| echo: true
+# Aplicamos los datos
+estimador_ATE(STAR, tratamiento = "str", variable_resultado = "tscorek")
+estimador_ATE(STAR, tratamiento = "str", variable_resultado = "readk")
+estimador_ATE(STAR, tratamiento = "str", variable_resultado = "mathk")
+```
+
+Una alternativa a esto: 
+
+```{r}
+#| warning: false
+#| message: false
+#| echo: true
+STAR %>%
+  t.test(tscorek ~ str, data = .) %>%
+  tidy()
+```
+
+### Aproximación vía regresión 
+
+Podemos aproximarnos al ATE mediante un modelo de regresión lineal: 
+
+$$
+\begin{align}
+   Y_i & = Y_i(0)(1 - d_i) + Y_i(1)d_i \\
+       & = Y_i(0) + (Y_i(1) - Y_i(0))d_i \\
+       & = \mu_{Y(0)} + [\mu_{Y(1)} - \mu_{Y(0)}]d_i + Y_i(0) - \mu_{Y(0)} + [(\mu_{Y(1)} - \mu_{Y(0)}) - (Y_i(0) - \mu_{Y(0)})]d_i     \\
+       & = \alpha + \beta d_i + u_i
+\end{align}
+$$
+
+Donde:
+
+- $(\alpha)$ es el intercepto y es igual a $(\mu_{Y(0)})$.
+- $(\beta)$ es $(\mu_{Y(1)} - \mu_{Y(0)})$, es decir, ATE.
+- $(u_i = Y_i(0) - \mu_{Y(0)}) si (d_i = 0)$ o $(u_i = Y_i(1) - \mu_{Y(1)})$ si $(d_i = 1)$.
+
+Por ejemplo: 
+
+```{r}
+#| warning: false
+#| message: false
+#| echo: true
+#| results: asis
+# Definimos y estimamos el modelo 
+modelo1 <- lm(tscorek ~ str, data = STAR)
+modelo2 <- lm(readk ~ str, data = STAR)
+modelo3 <- lm(mathk ~ str, data = STAR)
+
+# Reportamos estos modelos
+htmlreg(l=list(modelo1, modelo2, modelo3))
+```
+**¿Cómo interpretamos estos modelos? ¿Qué limitaciones pueden presentar?**
 
