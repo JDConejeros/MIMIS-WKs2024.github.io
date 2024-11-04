@@ -49,6 +49,48 @@
     "text": "Proximamente…"
   },
   {
+    "objectID": "S1.html",
+    "href": "S1.html",
+    "title": "Sesión 1: Inferencia causal en ciencias sociales",
+    "section": "",
+    "text": "Podemos entender la inferencia causal como el interés por estimar el efecto de los acontencimientos y las decisiones sobre un resultado de interés determinado. Para esto usamos:\n\nDatos: ¿Cuál es la estrategia de identificación?\nSupuestos: ¿Cuáles son los supuestos que sustentan la causalidad en un estudio?\n\nAlgunos ejemplos:\n\n\n\n\n\nZubizarreta, J. R., Cerdá, M., & Rosenbaum, P. R. (2013). Effect of the 2010 Chilean earthquake on posttraumatic stress: reducing sensitivity to unmeasured bias through study design. Epidemiology, 24(1), 79-87.\n\n\n\n\n\nTorche, F. (2011). The effect of maternal stress on birth outcomes: exploiting a natural experiment. Demography, 48, 1473-1491.\n\n\n\n\n\nMuralidharan, K., Singh, A., & Ganimian, A. J. (2019). Disrupting education? Experimental evidence on technology-aided instruction in India. American Economic Review, 109(4), 1426-1460."
+  },
+  {
+    "objectID": "S1.html#qué-es-la-inferencia-causal",
+    "href": "S1.html#qué-es-la-inferencia-causal",
+    "title": "Sesión 1: Inferencia causal en ciencias sociales",
+    "section": "",
+    "text": "Podemos entender la inferencia causal como el interés por estimar el efecto de los acontencimientos y las decisiones sobre un resultado de interés determinado. Para esto usamos:\n\nDatos: ¿Cuál es la estrategia de identificación?\nSupuestos: ¿Cuáles son los supuestos que sustentan la causalidad en un estudio?\n\nAlgunos ejemplos:\n\n\n\n\n\nZubizarreta, J. R., Cerdá, M., & Rosenbaum, P. R. (2013). Effect of the 2010 Chilean earthquake on posttraumatic stress: reducing sensitivity to unmeasured bias through study design. Epidemiology, 24(1), 79-87.\n\n\n\n\n\nTorche, F. (2011). The effect of maternal stress on birth outcomes: exploiting a natural experiment. Demography, 48, 1473-1491.\n\n\n\n\n\nMuralidharan, K., Singh, A., & Ganimian, A. J. (2019). Disrupting education? Experimental evidence on technology-aided instruction in India. American Economic Review, 109(4), 1426-1460."
+  },
+  {
+    "objectID": "S1.html#problema-fundamental-de-la-inferencia-causal",
+    "href": "S1.html#problema-fundamental-de-la-inferencia-causal",
+    "title": "Sesión 1: Inferencia causal en ciencias sociales",
+    "section": "Problema fundamental de la inferencia causal",
+    "text": "Problema fundamental de la inferencia causal"
+  },
+  {
+    "objectID": "S1.html#average-treatment-effect-ate",
+    "href": "S1.html#average-treatment-effect-ate",
+    "title": "Sesión 1: Inferencia causal en ciencias sociales",
+    "section": "Average Treatment Effect (ATE)",
+    "text": "Average Treatment Effect (ATE)"
+  },
+  {
+    "objectID": "S1.html#correlación-vs-causalidad",
+    "href": "S1.html#correlación-vs-causalidad",
+    "title": "Sesión 1: Inferencia causal en ciencias sociales",
+    "section": "Correlación vs causalidad",
+    "text": "Correlación vs causalidad"
+  },
+  {
+    "objectID": "S1.html#regresión-lineal",
+    "href": "S1.html#regresión-lineal",
+    "title": "Sesión 1: Inferencia causal en ciencias sociales",
+    "section": "Regresión lineal",
+    "text": "Regresión lineal\n\nEstimador OLS\n\n\nError estándar\n\n\nTest de hipótesis"
+  },
+  {
     "objectID": "S3.html",
     "href": "S3.html",
     "title": "Sesión 1: Técnicas cuasi-experimentales",
