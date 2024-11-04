@@ -2,42 +2,42 @@
   {
     "objectID": "index.html",
     "href": "index.html",
-    "title": "Descripción",
+    "title": "MIMIS Workshop 2024",
     "section": "",
     "text": "Este taller analiza las dificultades para estimar efectos causales en ciencias sociales y se introducen estrategias para abordar la causalidad mediante diseños experimentales y cuasi-experimentales.\nTendremos tres sesiones:\nSesión 1: Problema fundamental de la inferencia causal y repaso de regresión lineal.\nLunes 04/11 de 18:00 – 20:30 hrs\nSesión 2: Diseños experimentales: aleatorización, diseño de bloques y cálculos de poder.\nLunes 11/11 de 18:00 – 20:30 hrs\nSesión 3: Técnicas con datos observacionales: matching y variables instrumentales. Lunes 18/11 de 18:00 – 20:30 hrs"
   },
   {
     "objectID": "index.html#aproximaciones-a-la-inferencia-causal-en-ciencias-sociales",
     "href": "index.html#aproximaciones-a-la-inferencia-causal-en-ciencias-sociales",
-    "title": "Descripción",
+    "title": "MIMIS Workshop 2024",
     "section": "",
     "text": "Este taller analiza las dificultades para estimar efectos causales en ciencias sociales y se introducen estrategias para abordar la causalidad mediante diseños experimentales y cuasi-experimentales.\nTendremos tres sesiones:\nSesión 1: Problema fundamental de la inferencia causal y repaso de regresión lineal.\nLunes 04/11 de 18:00 – 20:30 hrs\nSesión 2: Diseños experimentales: aleatorización, diseño de bloques y cálculos de poder.\nLunes 11/11 de 18:00 – 20:30 hrs\nSesión 3: Técnicas con datos observacionales: matching y variables instrumentales. Lunes 18/11 de 18:00 – 20:30 hrs"
   },
   {
     "objectID": "index.html#referencias",
     "href": "index.html#referencias",
-    "title": "Descripción",
+    "title": "MIMIS Workshop 2024",
     "section": "Referencias",
     "text": "Referencias\nAngrist, J. D. y J. Pischke (2015). Mastering ’Metrics: The Path from Cause to Effect. Princeton University Press.\nCunningham, S. (2021). Causal inference. In Causal Inference. Yale University Press. Versión en inglés: https://mixtape.scunning.com/\nGerber, A. S. y D. P. Green (2012). Field Experiments: Design, Analysis, and Interpretation. New York: W. W. Norton.\nHuntington-Klein, N. (2021). The effect: An introduction to research design and causality. Chapman and Hall/CRC. Versión en inglés: https://theeffectbook.net/index.html\nPearl, J., & Mackenzie, D. (2018). The book of why: the new science of cause and effect. Basic books. Lo puede encontrar aquí.\nStock, J. and Watson, M., Introduction to Econometrics, 3rd edition. (Disponible en Biblioteca SJ-UC)."
   },
   {
     "objectID": "index.html#links-complementarios",
     "href": "index.html#links-complementarios",
-    "title": "Descripción",
+    "title": "MIMIS Workshop 2024",
     "section": "Links Complementarios",
     "text": "Links Complementarios\n\nR para Ciencia de Datos: Libro base para el uso de R, aquí podrán ver que la plataforma de Rstudio no es solo para el análisis estadístico, sino que de procesamiento de datos y reporte (versión en español).\nAnalizaR Datos Políticos: Manual con herramientas y tips prácticos para analizar datos políticos.\nUCLA: Espacio para aprender estadística y programación.\nCausal Inference in R: Libro que utiliza una combinación de ejemplos de la medicina, la economía y la tecnología para demostrar que se necesita una pregunta causal clara y la voluntad de ser transparente sobre las suposiciones."
   },
   {
     "objectID": "index.html#comunidades-y-foros",
     "href": "index.html#comunidades-y-foros",
-    "title": "Descripción",
+    "title": "MIMIS Workshop 2024",
     "section": "Comunidades y foros",
     "text": "Comunidades y foros\nPara los que alguna vez fuimos nuevos en RStudio sirve bastante ver las preguntas/respuestas de otras personas en las comunidades de R (¡son muy activas!). De hecho, casi todas nuestras preguntas ya fueron respondidas por personas en todo el mundo. No olvidar que la mayoría de estos foros están en inglés:\n\nRStudio Community\nStackoverflow"
   },
   {
     "objectID": "index.html#otros-enlaces-de-interés",
     "href": "index.html#otros-enlaces-de-interés",
-    "title": "Descripción",
+    "title": "MIMIS Workshop 2024",
     "section": "Otros enlaces de interés",
     "text": "Otros enlaces de interés\n\nCompendio de links útiles\nConectarse a Github desde R"
   },
