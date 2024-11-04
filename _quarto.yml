@@ -17,9 +17,7 @@ lang: es
 
 format:
   html:
-    theme: #cosmo
-      dark: darkly
-      light: flatly
+    theme: cosmo
     css: styles.css
     toc: true
 
