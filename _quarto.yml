@@ -7,11 +7,11 @@ website:
     left:
       - href: index.qmd
       - href: S1.qmd
-          text: Sesión 1
+        text: Sesión 1
       - href: S2.qmd
-          text: Sesión 2
+        text: Sesión 2
       - href: S3.qmd
-          text: Sesión 3
+        text: Sesión 3
 lang: es    
 
 format:

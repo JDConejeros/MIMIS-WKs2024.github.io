@@ -14,11 +14,11 @@ Lunes 04/11 de 18:00 – 20:30 hrs
 
 :pushpin: Sesión 2: **Diseños experimentales: aleatorización, diseño de bloques y cálculos de poder**. 
 
-Lunes 04/11 de 18:00 – 20:30 hrs
+Lunes 11/11 de 18:00 – 20:30 hrs
 
 :pushpin: Sesión 3: **Técnicas con datos observacionales: matching y variables instrumentales**. 
 
-Lunes 04/11 de 18:00 – 20:30 hrs
+Lunes 18/11 de 18:00 – 20:30 hrs
 
 ## Referencias 
 
@@ -30,7 +30,7 @@ Gerber, A. S. y D. P. Green (2012). Field Experiments: Design, Analysis, and Int
 
 Huntington-Klein, N. (2021). The effect: An introduction to research design and causality. Chapman and Hall/CRC. Versión en inglés: <https://theeffectbook.net/index.html>
 
-Pearl, J., & Mackenzie, D. (2018). The book of why: the new science of cause and effect. Basic books. Lo puede encontrar [aquí](http://repo.darmajaya.ac.id/5342/1/The%20book%20of%20why_%20the%20new%20science%20of%20cause%20and%20effect%20%28%20PDFDrive%20%29.pdf)
+Pearl, J., & Mackenzie, D. (2018). The book of why: the new science of cause and effect. Basic books. Lo puede encontrar [aquí](http://repo.darmajaya.ac.id/5342/1/The%20book%20of%20why_%20the%20new%20science%20of%20cause%20and%20effect%20%28%20PDFDrive%20%29.pdf).
 
 Stock, J. and Watson, M., Introduction to Econometrics, 3rd edition. (Disponible en Biblioteca SJ-UC).
 
