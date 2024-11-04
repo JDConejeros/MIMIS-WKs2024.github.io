@@ -30,4 +30,4 @@ abstract-title: "Facultad de Ciencias Sociales e Historia UDP"
 abstract: "[Click al repositorio](https://github.com/JDConejeros/MIMIS-WKs2024.github.io)"
 ---
 
-# Título 
+Proximamente...

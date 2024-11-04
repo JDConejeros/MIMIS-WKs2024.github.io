@@ -1,6 +1,5 @@
 ---
 title: "Ciclo de Talleres Metodológicos Virtuales"
-subtitle: "Magíster en Métodos para la Investigación Social 2024"
 author: 
   - José Conejeros <br> <jose.conejeros1@mail.udp.cl>
 date: last-modified
@@ -13,15 +12,15 @@ Este taller analiza las dificultades para estimar efectos causales en ciencias s
 
 Tendremos tres sesiones: 
 
-Sesión 1: **Problema fundamental de la inferencia causal y repaso de regresión lineal**. 
+[Sesión 1](https://jdconejeros.github.io/MIMIS-WKs2024.github.io/S1.html): **Problema fundamental de la inferencia causal y repaso de regresión lineal**. 
 
 Lunes 04/11 de 18:00 – 20:30 hrs
 
-Sesión 2: **Diseños experimentales: aleatorización, diseño de bloques y cálculos de poder**. 
+[Sesión 2](https://jdconejeros.github.io/MIMIS-WKs2024.github.io/S2.html): **Diseños experimentales: aleatorización, diseño de bloques y cálculos de poder**. 
 
 Lunes 04/11 de 18:00 – 20:30 hrs
 
-Sesión 3: **Técnicas con datos observacionales: matching y variables instrumentales**. 
+[Sesión 3](https://jdconejeros.github.io/MIMIS-WKs2024.github.io/S3.html): **Técnicas con datos observacionales: matching y variables instrumentales**. 
 Lunes 04/11 de 18:00 – 20:30 hrs
 
 ## Referencias 
