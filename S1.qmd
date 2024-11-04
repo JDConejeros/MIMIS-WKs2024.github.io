@@ -158,7 +158,33 @@ Pensemos dos escenarios, **¿podemos identificar el efecto?**
 
 ## Correlación vs causalidad 
 
+En muchos estudios e investigaciones, es fácil observar una correlación entre dos variables, como la acción del hombre dentro del vehículo y el movimiento de este, pero eso no significa que una variable cause la otra. La causalidad implica un mecanismo claro que conecta las variables de manera que una provoque la otra, como las personas empujando el vehículo desde fuera.
 
+![](images/S1/causa_efecto.png){width="500" height="550" fig-align="center"}
+
+La pregunta de fondo es **¿la correlación observada es causal?**
+
+Causalidad $\neq$ Asociación:
+
+$E[Y_i(1)] - E[Y_i(0)] \neq E[Y_i(1) | D_i = 1] - E[Y_i(0) | D_i = 0]$
+
+Dos condiciones necesarias: 
+
+1. $E[Y_i(1)|D_i=1]=E[Y_i(1)|D_i=0]=E[Y_i(1)]$
+2. $E[Y_i(0)|D_i=0]=E[Y_i(0)|D_i=1]=E[Y_i(0)]$
+
+Si las condiciones 1 y 2 se cumplen entonces: Causalidad $=$ Asociación:
+
+![](images/S1/causa_asociacion.png){width="500" height="550" fig-align="center"}
+
+Pensemos en algunas relaciones:
+
+- ¿El cinturón de seguridad (X) reduce mortalidad por accidentes (Y)?
+- ¿La contaminación industrial (X) aumenta la temperatura del planeta (Y)?
+- ¿Un mayor nivel educativo del padre (X) aumenta el nivel educativo del hijo?
+- ¿Venir a clases (X) mejora mi nota final (Y)?
+
+El concepto clave para responder estas preguntas sobre causalidad es el de **contrafactual o contrafáctico** ¿Qué hubiese pasado en ausencia del tratamiento? El escenario ideal es poder comparar el resultado cuando ocurre y cuando no ocurre.
 
 ## Aproximación al ATE vía regresión lineal 
 
