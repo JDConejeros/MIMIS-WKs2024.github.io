@@ -95,7 +95,7 @@
     "href": "S1.html#correlación-vs-causalidad",
     "title": "Sesión 1: Inferencia causal en ciencias sociales",
     "section": "Correlación vs causalidad",
-    "text": "Correlación vs causalidad"
+    "text": "Correlación vs causalidad\nEn muchos estudios e investigaciones, es fácil observar una correlación entre dos variables, como la acción del hombre dentro del vehículo y el movimiento de este, pero eso no significa que una variable cause la otra. La causalidad implica un mecanismo claro que conecta las variables de manera que una provoque la otra, como las personas empujando el vehículo desde fuera.\n\n\n\n\n\nLa pregunta de fondo es ¿la correlación observada es causal?\nCausalidad \\(\\neq\\) Asociación:\n\\(E[Y_i(1)] - E[Y_i(0)] \\neq E[Y_i(1) | D_i = 1] - E[Y_i(0) | D_i = 0]\\)\nDos condiciones necesarias:\n\n\\(E[Y_i(1)|D_i=1]=E[Y_i(1)|D_i=0]=E[Y_i(1)]\\)\n\\(E[Y_i(0)|D_i=0]=E[Y_i(0)|D_i=1]=E[Y_i(0)]\\)\n\nSi las condiciones 1 y 2 se cumplen entonces: Causalidad \\(=\\) Asociación:\n\n\n\n\n\nPensemos en algunas relaciones:\n\n¿El cinturón de seguridad (X) reduce mortalidad por accidentes (Y)?\n¿La contaminación industrial (X) aumenta la temperatura del planeta (Y)?\n¿Un mayor nivel educativo del padre (X) aumenta el nivel educativo del hijo?\n¿Venir a clases (X) mejora mi nota final (Y)?\n\nEl concepto clave para responder estas preguntas sobre causalidad es el de contrafactual o contrafáctico ¿Qué hubiese pasado en ausencia del tratamiento? El escenario ideal es poder comparar el resultado cuando ocurre y cuando no ocurre."
   },
   {
     "objectID": "S1.html#aproximación-al-ate-vía-regresión-lineal",
