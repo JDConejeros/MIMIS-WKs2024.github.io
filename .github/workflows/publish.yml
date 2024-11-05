@@ -29,7 +29,7 @@ jobs:
         run: R -e "install.packages('tinytex')"
 
       - name: Install TinyTeX
-        run: R -e "tinytex::install_tinytex()"
+        run: R -e "tinytex::install_tinytex(force = TRUE)"
 
       - name: Install R Dependencies
         uses: r-lib/actions/setup-renv@v2
