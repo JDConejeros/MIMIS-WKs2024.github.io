@@ -37,7 +37,7 @@ install.packages("texPreview")
 install.packages("dplyr")
 install.packages("tidyr")
 install.packages("broom")
-install.packages("Matrix", version = "1.4-1")
+install.packages("Matrix")
 install.packages("AER")
 install.packages("texreg")
 ```
