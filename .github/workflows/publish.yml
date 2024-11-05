@@ -25,6 +25,9 @@ jobs:
       - name: Install system dependencies
         run: sudo apt-get update && sudo apt-get install -y libmagick++-dev texlive-latex-extra texlive-fonts-recommended texlive-fonts-extra
 
+      - name: Install tinytex package
+        run: R -e "install.packages('tinytex')"
+
       - name: Install TinyTeX
         run: R -e "tinytex::install_tinytex()"
 
