@@ -23,7 +23,10 @@ jobs:
           r-version: '4.4.0'
 
       - name: Install system dependencies
-        run: sudo apt-get update && sudo apt-get install -y libmagick++-dev
+        run: sudo apt-get update && sudo apt-get install -y libmagick++-dev texlive-latex-extra texlive-fonts-recommended texlive-fonts-extra
+
+      - name: Install TinyTeX
+        run: R -e "tinytex::install_tinytex()"
 
       - name: Install R Dependencies
         uses: r-lib/actions/setup-renv@v2
@@ -39,3 +42,7 @@ jobs:
           target: gh-pages
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Display LaTeX log if compilation fails
+        if: failure()
+        run: cat tex_tempDoc.log || true
