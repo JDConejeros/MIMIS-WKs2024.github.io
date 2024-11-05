@@ -1,5 +1,5 @@
 ---
-title: "Sesión 1: Técnicas cuasi-experimentales"
+title: "Sesión 3: Técnicas cuasi-experimentales"
 subtitle: "Magíster en Métodos para la Investigación Social 2024"
 author: 
   - José Conejeros <br> <jose.conejeros1@mail.udp.cl>

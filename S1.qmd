@@ -30,6 +30,19 @@ abstract-title: "Facultad de Ciencias Sociales e Historia UDP"
 abstract: "[Click al repositorio](https://github.com/JDConejeros/MIMIS-WKs2024.github.io)"
 ---
 
+```{r}
+#| echo: false
+#| include: false
+install.packages("texPreview")
+install.packages("dplyr")
+install.packages("tidyr")
+install.packages("broom")
+install.packages("Matrix")
+install.packages("AER")
+install.packages("texreg")
+```
+
+
 ## ¿Qué es la inferencia causal? 
 
 Podemos entender la inferencia causal como el interés por estimar el efecto de los acontencimientos y las decisiones sobre un resultado de interés determinado. 
@@ -96,7 +109,83 @@ Este es problema de *missing data* para los tratados solo conocemos $Y_i(t)$ y p
 
 ## *Average Treatment Effect* (ATE)
 
+Veamos los siguientes resultados potenciales: 
+
+::: {.center}
+
+```{r}
+#| warning: false
+#| message: false
+#| echo: false
+options(scipen = 999)
+# Librerías de trabajo
+library(texPreview)
+tex <- '
+\\documentclass[varwidth, border={ 10 5 10 5 }]{standalone}
+\\usepackage{tabu}
+\\usepackage{xcolor}
+\\begin{document}
+    \\begin{tabu}{cccc}
+    	  $i$ & $Y^1$ & $Y^0$ & $\\tau$ \\\\ \\hline
+        1   & 7     & 1     & 6       \\\\
+        2   & 5     & 6     & -1      \\\\
+        3   & 5     & 1     & 4       \\\\
+        4   & 7     & 8     & -1      \\\\
+        5   & 4     & 2     & 2       \\\\
+        6   & 10    & 1     & 9       \\\\
+        7   & 1     & 10    & -9      \\\\
+        8   & 5     & 6     & -1      \\\\
+        9   & 3     & 7     & -4      \\\\
+        10  & 9     & 8     & 1       \\\\ \\hline
+\\\\
+	\\end{tabu}
+\\end{document}
+'
+tex_preview(tex_lines=tex, returnType='html', density=300)
+```
+:::
+
+
+$$\begin{split}ATE & = \frac{1}{10}\cdot(6-1+4-1+2 \\& \quad +9-9-1-4+1) \\ & = \frac{6}{10}=0.6\end{split}$$
+
 Podemos usar la población $U$ mediante un efecto causal promedio (ATE) como el valor esperado de la diferencia $Y_i(t)-Y_i(c)$ en los $i$'s de $U$:
+
+::: {.center}
+
+```{r}
+#| warning: false
+#| message: false
+#| echo: false
+options(scipen = 999)
+# Librerías de trabajo
+library(texPreview)
+tex <- '
+\\documentclass[varwidth, border={ 10 5 10 5 }]{standalone}
+\\usepackage{tabu}
+\\usepackage{xcolor}
+\\begin{document}
+    \\begin{tabu}{cccccc}
+    	  $i$ & $Y^1$ & $Y^0$ & $\\tau$                  & $D_i$ & $Y_i$  \\\\ \\hline
+        1   & 7     & \\color{orange}{1}     & \\color{orange}{6}       & 1     & 7    \\\\
+        2   & \\color{orange}{5}     & 6     & \\color{orange}{-1}      & 0     & 6    \\\\
+        3   & 5     & \\color{orange}{1}     & \\color{orange}{4}       & 1     & 5    \\\\
+        4   & \\color{orange}{7}     & 8     & \\color{orange}{-1}      & 0     & 8    \\\\
+        5   & 4     & \\color{orange}{2}     & \\color{orange}{2}       & 1     & 4    \\\\
+        6   & 10    & \\color{orange}{1}     & \\color{orange}{9}       & 1     & 10   \\\\
+        7   & \\color{orange}{1}     & 10    & \\color{orange}{-9}      & 0     & 10   \\\\
+        8   & \\color{orange}{5}     & 6     & \\color{orange}{-1}      & 0     & 6    \\\\
+        9   & \\color{orange}{3}     & 7     & \\color{orange}{-4}      & 0     & 7    \\\\
+        10  & 9     & \\color{orange}{8}     & \\color{orange}{1}       & 1     & 9    \\\\ \\hline
+\\\\
+	\\end{tabu}
+\\end{document}
+'
+tex_preview(tex_lines=tex, returnType='html', density=300)
+```
+
+:::
+
+- Lo que está en naranjo no es observable, por lo que no es posible calcular el ATE directamente, entonces: 
 
 $$
 \begin{align}
@@ -196,21 +285,12 @@ Podemos obtener una aproximación directa a partir de datos:
 #| warning: false
 #| message: false
 #| echo: true
-options(scipen = 999)
 # Librerías de trabajo
-install.packages("dplyr")
 library(dplyr) # Manipulación 
-install.packages("tidyr")
 library(tidyr) # Manipulación 
-install.packages("broom")
 library(broom) # Para manipular objetos
-install.packages("Matrix")
 library(Matrix)
-
-install.packages("AER")
 library(AER) # Contiene los datos 
-
-install.packages("texreg")
 library(texreg) # Contiene los datos 
 
 # Extraemos los datos 

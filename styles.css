@@ -1,1 +1,8 @@
 /* css styles */
+.justify {
+  text-align: justify !important
+}
+
+.center {
+  text-align: center !important
+}
