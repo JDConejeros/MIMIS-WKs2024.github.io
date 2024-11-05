@@ -39,6 +39,7 @@ install.packages("tidyr")
 install.packages("broom")
 install.packages("Matrix")
 install.packages("AER")
+install.packages("tinytex")
 install.packages("texreg")
 ```
 
