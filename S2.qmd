@@ -30,4 +30,400 @@ abstract-title: "Facultad de Ciencias Sociales e Historia UDP"
 abstract: "[Click al repositorio](https://github.com/JDConejeros/MIMIS-WKs2024.github.io)"
 ---
 
+
+```{r}
+#| echo: false
+#| include: false
+install.packages("texPreview")
+install.packages("dplyr")
+install.packages("tidyr")
+install.packages("broom")
+install.packages("Matrix")
+install.packages("AER")
+install.packages("tinytex")
+install.packages("texreg")
+install.packages("ggplot2")
+install.packages("ggpubr")
+```
+
+
+## Modelo de resultados potenciales (Neyman-Rubin)
+
+Considere una población de $i$ unidades potencialmente expuestas a un tratamiento (causa) o control. La variable $D_i$ nos indicará si la unidad $i$ fue tratada ($D_i=t$) o no tratada, o sea control, ($D_i=c$).
+
+Nos interesa evaluar el efecto sobre una variable de respuesta observada que denotaremos como $Y_i$ con dos respuestas potenciales: 
+
+- $Y_i(t)$ si la unidad fue tratada 
+- $Y_i(c)$ en caso contrario 
+
+Dado que $Y_i$ mide el efecto de la causa, entonces, los valores de $Y_i$ son posteriores a la exposición del tratamiento.
+
+A su vez, denotamos que el modelo causal del tratamiento en una unidad $i$ puede ser expresado como:
+
+$$\delta_i=Y_i(t)-Y_i(c)$$
+
+Lo interesante del modelo Neyman-Rubin es que el valor de $D_i$ para cada unidad $i$ podría haber sido distinto. Este es el problema.
+
+$$Y_i=D_iY_i(t)-(1-D_i)Y_i(c)$$
+Donde $D_i=1$ si la persona fue tratada y $D_i=0$ en caso contrario, entonces:
+
+$$\delta_i=(1)Y_i(t)-(1-0)Y_i(c)=Y_i(t)-Y_i(c)$$
+
+::: {.callout-important title="Problema fundamental de la inferencia causal"}
+La imposibilidad de observar una variable de respuesta $Y_i$ en la misma unidad y al mismo tiempo para dos condiciones diferentes: $Y_i(t)$ y $Y_i(c)$ (Holland, 1986).
+:::
+
+**Supuestos**:
+
+- Independencia: $(Y_{i}(t), Y_{i}(c)) \perp D_{i}$
+- Restricción de exclusión: $Y_{i}(1,d) = Y_{i}(0,d)$
+- Stable-unit-treatment assumption (SUTVA): no hay *spillovers*
+
+## Sesgo de selección
+
+Tenemos tres tipos de efectos causales: 
+
+1. Efecto causal promedio (ATE): es la diferencia como si (*what-if*) en el SIMCE que esperariamos si pudieramos educar de un modo aleatorio a estudiantes tanto en escuelas municipales y en escuelas privadas.
+
+$$ATE = E[\tau_i]=E[Y_i^1-Y_i^0]=E[Y_i^1]-E[Y_i^0]$$
+
+2. Efecto causal del tratamiento para los tratados (ATT): es la diferencia como si (*what-if*) en el SIMCE que esperariamos si pudieramos educar de un modo aleatorio a estudiantes de **colegios municipales** tanto en escuelas municipales y en escuelas privadas.
+
+$$ATT=E[\tau_i|D_i=1]=E[Y_i^1-Y_i^0|D_i=1]=E[Y_i^1|D_i=1]-E[Y_i^0|D_i=1]$$
+
+3. Efecto causal del tratamiento para los controles (ATU): es la diferencia como si (*what-if*) en el SIMCE que esperariamos si pudieramos educar de un modo aleatorio a estudiantes de **colegios privados** tanto en escuelas municipales y en escuelas privadas.
+
+$$ATU=E[\tau_i|D_i=1]=E[Y_i^1-Y_i^0|D_i=1]=E[Y_i^1|D_i=1]-E[Y_i^0|D_i=1]$$
+Veamos un ejemplo: 
+
+::: {.center}
+
+```{r}
+#| warning: false
+#| message: false
+#| echo: false
+options(scipen = 999)
+# Librerías de trabajo
+library(texPreview)
+tex <- '
+\\documentclass[varwidth, border={ 10 5 10 5 }]{standalone}
+\\usepackage{tabu}
+\\usepackage{xcolor}
+\\begin{document}
+    \\begin{tabu}{cccccc}
+    	  $i$ & $Y^1$ & $Y^0$ & $\\tau$                  & $D_i$ & $Y_i$  \\\\ \\hline
+        1   & 7     & \\color{orange}{1}     & \\color{orange}{6}       & 1     & 7    \\\\
+        2   & \\color{orange}{5}     & 6     & \\color{orange}{-1}      & 0     & 6    \\\\
+        3   & 5     & \\color{orange}{1}     & \\color{orange}{4}       & 1     & 5    \\\\
+        4   & \\color{orange}{7}     & 8     & \\color{orange}{-1}      & 0     & 8    \\\\
+        5   & 4     & \\color{orange}{2}     & \\color{orange}{2}       & 1     & 4    \\\\
+        6   & 10    & \\color{orange}{1}     & \\color{orange}{9}       & 1     & 10   \\\\
+        7   & \\color{orange}{1}     & 10    & \\color{orange}{-9}      & 0     & 10   \\\\
+        8   & \\color{orange}{5}     & 6     & \\color{orange}{-1}      & 0     & 6    \\\\
+        9   & \\color{orange}{3}     & 7     & \\color{orange}{-4}      & 0     & 7    \\\\
+        10  & 9     & \\color{orange}{8}     & \\color{orange}{1}       & 1     & 9    \\\\ \\hline
+\\\\
+	\\end{tabu}
+\\end{document}
+'
+tex_preview(tex_lines=tex, returnType='html', density=300)
+```
+
+:::
+
+$$\begin{split}ATE & = \frac{1}{10}\cdot(6-1+4-1+2 \\& \quad +9-9-1-4+1) \\ & = \frac{6}{10}=0.6\end{split}$$
+
+$$\begin{split}ATT & = \frac{1}{5}\cdot(6+4+2+9+1) \\ & = \frac{22}{5}=4.4\end{split}$$
+
+$$\begin{split}ATU & = \frac{1}{5}\cdot(-1-1-9-1-4) \\ & = \frac{-16}{5}=-3.2\end{split}$$
+Lo que está en naranjo no es observable, por lo que no es posible calcular el ATE directamente, entonces no es posible calcular ATE, ATT o ATU directamente, ya que los parámetros de interés no son observables. 
+
+::: {.callout-important title="Idea clave"}
+Los distintos métodos de estimación de efectos causales persiguen siempre el mismo objetivo: usar información observable para construir un estimador plausible del contrafactual.
+:::
+
+Podríamos construir nuestras medidas a partir de un estimador de diferencia de medias (SDM) que utiliza la diferencia de promedios entre tratados y no tratados si es que se tiene una muestra aleatoria. Pero tenemos dos problemas: 
+
+$$\begin{split}SDM & = E[Y_i|D_i=1]-E[Y_i|D_i=0] \\ \\ & = E[Y_i^1|D_i=1]-E[Y_i^0|D_i=0]\color{orange}{+E[Y_i^0|D_i=1]-E[Y_i^0|D_i=1]} \\ \\ & = \underset{ATT}{\underbrace{E[Y_i^1-Y_i^0|D_i=1]}}+\underset{\text{Selection Bias}}{\underbrace{\big\{E[Y_i^0|D_i=1]-E[Y_i^0|D_i=0]\big\}}}\end{split}$$
+Sea $\pi=E[D_i]$, entonces:
+
+$$\begin{split}ATE = E[\tau_i] & = \pi\cdot E[\tau_i|D_i=1]+(1-\pi)\cdot E[\tau_i|D_i=0] \\ & = \pi \cdot ATT + (1-\pi)\cdot ATU \color{orange}{+ ATT - ATT} \\ & = (1-\pi)\cdot (ATU-ATT) + ATT \\ \Rightarrow ATT & = ATE+(1-\pi) \cdot (ATT-ATU) \end{split}$$
+
+Entonces: 
+
+$$SDM = ATE+\underset{\text{Heterogeneous Treatment Effect Bias}}{\underbrace{(1-\pi)\cdot (ATT-ATU)}}+\underset{\text{Selection Bias}}{\underbrace{\big\{E[Y_i^0|D_i=1]-E[Y_i^0|D_i=0]\big\}}}$$
+- Para que el SDM identifique el $ATE$, tenemos que .orange[suponer]:$$E[Y_i^0|D_i]=E[Y_i^0] \quad \text{y} \quad E[\tau_i|D_i]=E[\tau_i]$$
+- Una condición suficiente es $(Y_i^0,Y_i^1)\perp D_i$
+
+**¿Cuándo tenemos problemas?**
+
+- Las personas que reciben un tratamiento suelen ser quienes más lo necesitan $Y_i^0\not\perp D_i$.
+
+- Las personas que reciben un tratamiento suelen ser quienes mayores beneficios pueden obtener del tratamiento $(Y_i^1-Y_i^0)\not\perp D_i$
+  
+
+## Asignación aleatoria 
+
+La asignación aleatoria es un procedimiento mediante el cual las unidades en un estudio se asignan al tratamiento de manera imparcial, como lanzar una moneda. Este proceso busca asegurar que la asignación sea independiente de las características de las unidades.
+
+La asignación aleatoria asegura que todas las combinaciones posibles de asignación de tratamiento tienen la misma probabilidad de ocurrir.
+
+$$Pr(Z | \Omega) = \frac{1}{\Omega}, \forall Z \in \Omega$$
+
+![](images/S1/treat_control2.png){width="500" height="550" fig-align="center"}
+
+Sabemos que: 
+
+$$SDM = ATE+\underset{\text{Heterogeneous Treatment Effect Bias}}{\underbrace{(1-\pi)\cdot (ATT-ATU)}}+\underset{\text{Selection Bias}}{\underbrace{\big\{E[Y_i^0|D_i=1]-E[Y_i^0|D_i=0]\big\}}}$$
+
+- La asignación aleatoria de un tratamiento garantiza que $(Y_i^0,Y_i^1)\perp D_i$, con lo cual: 
+
+  - $\underset{ATT}{\underbrace{E[Y_i^1-Y_i^0|D_i=1]}}=\underset{ATU}{\underbrace{E[Y_i^1-Y_i^0|D_i=0]}}=\underset{ATE}{\underbrace{E[Y_i^1-Y_i^0]}}$
+  
+  - $E[Y_i^0|D_i=1]=E[Y_i^0|D_i=0]$
+
+- Por lo tanto, si el tratamiento se asigna en forma aleatoria,
+
+$$SDM = ATE = ATT = ATU$$
+
+Procedimiento para Asignación Aleatoria Completa:
+
+- Determinar el número total de sujetos $N$ y el tamaño del grupo de tratamiento $m$.
+- Generar un número aleatorio para cada sujeto.
+- Ordenar los sujetos de menor a mayor de acuerdo con el número aleatorio.
+- Asignar los primeros $m$ sujetos al grupo de tratamiento.
+
+Otros tipos de asignaciones: no restrigida, restringida (condicional).
+
+Hagamos un ejercicio de simulación: 
+  
+```{r}
+#| warning: false
+#| message: false
+#| echo: true
+N=100000 #número de observaciones
+Y0 <- rnorm(n=N, mean=0, sd=1)# resultado potencial - C
+Y1 <- rnorm(n=N, mean=0.2, sd=1)# resultado potencial - T
+
+# Asignación aleatoria del tratamiento
+D=(rnorm(N)>0)
+```
+
+Grafiquemos las distribuciones: 
+
+```{r}
+#| warning: false
+#| message: false
+#| echo: true
+#| fig-align: center
+library(ggplot2)
+library(ggpubr)
+
+# Crear data frames para cada distribución
+data_Y0 <- data.frame(Outcome = Y0, Group = ifelse(D, "Treatment", "Control"))
+data_Y1 <- data.frame(Outcome = Y1, Group = ifelse(D, "Treatment", "Control"))
+
+# Gráfico de densidad para Y0
+plot_Y0 <- ggplot(data_Y0, aes(x = Outcome, fill = Group)) +
+  geom_density(alpha = 0.5) +
+  geom_vline(aes(xintercept = mean(Outcome[Group == "Treatment"])), color = "red", linetype = "dashed") +
+  geom_vline(aes(xintercept = mean(Outcome[Group == "Control"])), color = "blue", linetype = "dashed") +
+  labs(title = expression("Distribución de " ~ Y[0]), x = "Outcome", y = "Density") +
+  theme_minimal() +
+  theme(legend.position = "top")
+
+# Gráfico de densidad para Y1
+plot_Y1 <- ggplot(data_Y1, aes(x = Outcome, fill = Group)) +
+  geom_density(alpha = 0.5) +
+  geom_vline(aes(xintercept = mean(Outcome[Group == "Treatment"])), color = "red", linetype = "dashed") +
+  geom_vline(aes(xintercept = mean(Outcome[Group == "Control"])), color = "blue", linetype = "dashed") +
+  labs(title = expression("Distribución de " ~ Y[1]), x = "Outcome", y = "Density") +
+  theme_minimal() +
+  theme(legend.position = "top")
+
+# Combinar los gráficos en una fila
+ggpubr::ggarrange(plot_Y0, plot_Y1, nrow=1, common.legend = TRUE)
+```
+
+
+```{r}
+#| warning: false
+#| message: false
+#| echo: true
+#ATE:
+mean(Y1-Y0)
+#ATT:
+mean(Y1[D==1]-Y0[D==1])
+#ATU:
+mean(Y1[D==0]-Y0[D==0])
+```
+
+Podemos usar el $SDM$ para estimar $ATE=ATT=ATU$:
+
+```{r}
+#| warning: false
+#| message: false
+#| echo: true
+
+Y <- Y1*D+Y0*(1-D)
+
+#SDM
+mean(Y[D==1])-mean(Y[D==0])
+```
+
+Lo mismo podemos hacer con una regresión:
+
+```{r}
+#| warning: false
+#| message: false
+#| echo: true
+#| results: asis
+library(texreg)
+reg <- lm(Y~D)
+
+# Reportamos estos modelos
+htmlreg(l=list(reg))
+```
+
+**¿Qué asumimos en esta estimación?**
+
+## Balance y eficiencia
+
+Si la asignación ha sido realmente aleatoria, no solo debiéramos tener $(Y_i^0,Y_i^1)\perp D_i$, sino que además esperaríamos tener $X_i\perp D_i$ para cualquier variable $X_i$ observada antes del programa. La independencia nos dirá que tanto los resultados potenciales como las covariables son independientes de la asignación de tratamiento: $(Y_i^0,Y_i^1), X \perp D_i$
+
+Una forma de verificar que la asignación ha sido realmente aleatoria, es comparar las características observadas en la línea de base entre unidades tratadas y no tratadas. El procedimiento para evaluar balance incluye: 
+
+- **Test de medias**
+
+$$t = \frac{\bar{X}_T - \bar{X}_C}{\sqrt{\frac{s_T^2}{n_T} + \frac{s_C^2}{n_C}}}$$
+* Camino rápido: un modelo logístico con la variable $D_i$ como dependiente y todas las variables observadas como independientes. 
+
+- **Omnibus Test**: Con base en inferencia por aleatorización, se utiliza un test F para evaluar el balance general de todas las covariables conjuntamente. Esto permite verificar si el conjunto completo de covariables muestra una diferencia significativa en su balance entre los grupos:
+$$F = \frac{\text{MSB}}{\text{MSW}}$$
+
+Si la distribución de $X_i$ es similar en ambos grupos, podemos tomarlo como evidencia de que la aleatorización fue efectiva y por lo tanto ambos grupos son comparables tanto en variables observables como en variables no observables. Sin embargo, existe falta de balance si hay correlación entre la covariable $X$ y la asignación de tratamiento $D$. Esto se traduce en:
+$$\text{Cov}(X, D) \neq 0$$
+
+En el contexto de experimentos, aunque la inferencia causal no requiere covariables, el uso de variables de control puede ser útil para:
+
+- Reducir la varianza en los resultados potenciales, al re-escalar la variable dependiente.
+
+- Eliminar diferencias observadas entre los grupos de tratamiento y control en análisis de regresión.
+
+- Formar bloques para mejorar el diseño experimental.
+
+En caso de desbalance, la regresión permite estimar el ATE bajo el control de varias covariables. La relación con el modelo contrafactual es la siguiente:
+
+$$\begin{split}Y_i & = Y_i(0)(1 - d_i) + Y_i(1)d_i 
+    \\ & = Y_i(0) + (Y_i(1) - Y_i(0))d_i
+    \\ & = \mu_{Y(0)} + [\mu_{Y(1)} - \mu_{Y(0)}]d_i + (Y_i(0) - \mu_{Y(0)}) + [(Y_i(1) - \mu_{Y(1)}) - (Y_i(0) - \mu_{Y(0)})]d_i
+    \\ & = \alpha + \beta d_i + u_i\end{split}$$
+
+Donde: 
+
+- $\alpha=\mu_{Y(0)}$
+- $\beta=\mu_{Y(1)} - \mu_{Y(0)}$ es el ATE
+- $u_i=Y_i(0) - \mu_{Y(0)}$ si $d_i=0$ o $u_i=Y_i(1) - \mu_{Y(1)}$ si $d_i=1$
+
+## Ejemplo: Muralidharan et al. (2019)
+
+*Muralidharan, K., Singh, A., & Ganimian, A. J. (2019). Disrupting education? Experimental evidence on technology-aided instruction in India. American Economic Review, 109(4), 1426-1460.*
+
+**¿Puede un software de aprendizaje mejorar los resultados académicos de niños en edad escolar?**
+
+**Problema**: Brechas académicas entre estudiantes que están en el mismo nivel. 
+
+![](images/S2/educ1.png){width="700" height="600" fig-align="center"}
+
+*Mindspark Cal* software, desarrollado por *Educational Initiatives* en India:
+
+1. Combina videos instructivos, juegos, actividades y evaluación continua
+
+2. Material de alta calidad diseñado y testeado a lo largo de varios años
+
+3. Contenido *adaptativo*, i) se adecúa al nivel del niño y ii) profundiza en áreas en las que el niño parece mantener concepciones erradas.
+
+La pregunta cobra especial relevancia en el contexto de pandemia, en que la educación a distancia puede ser la única alternativa.
+
+Más allá del contexto actual, existe un debate en cuanto a si este tipo de tecnologías ayuda al aprendizaje o más bien distrae a los niños.
+
+**Diseño experimental**
+
+- La intervención consistió en sesiones de aprendizaje con el software *Mindspark Cal* realizadas en 3 centros *Mindspark*
+
+- Reclutamiento de alumnos en 5 escuelas
+
+- 619 participantes (postulantes).
+
+- Asignación aleatoria:
+  - 314 en T
+  - 305 en C
+  
+- Atrición de 15% para los tratados y de 90% para los controles. 
+
+
+**¿Supuestos?**
+
+**Balance**
+
+![](images/S2/educ2.png){width="600" height="700" fig-align="center"}
+
+
+**ITT**
+
+¿Por qué un ITT?
+
+![](images/S1/muralidharan.png){width="700" height="600" fig-align="center"}
+
+**ITT (regresiones)**
+
+![](images/S2/itt1.png){width="700" height="500" fig-align="center"}
+
+**ITT (heterogeneidad)**
+
+![](images/S2/itt1.png){width="700" height="500" fig-align="center"}
+
+## Limitaciones de aleatorizar
+
+- La asignación aleatoria de un tratamiento hace posible la identificación de efectos causales por medio de eliminar el sesgo de selección
+
+- Esto ha llevado a que las evaluaciones experimentales o RCTs (randomized controlled trials) se consideren el **estándar de oro** de la evaluación de impacto
+
+- Pero la asignación aleatoria no siempre es posible:
+
+  - Existen restricciones éticas, legales y prácticas
+  - No podemos aleatorizar los años de escolaridad que recibe un grupo de niños
+  - No podemos aleatorizar el barrio en el que viven las familias
+  - No podemos aleatorizar la entrega de beneficios sociales otorgados por ley, etc.
+
+**Para saber si es ético asignar un programa en forma aleatoria, debemos responder las siguientes preguntas:**
+
+  - ¿Existen recursos disponibles para ofrecer el programa a todos los interesados?
+  
+  - ¿Es posible distinguir precisamente quiénes necesitan/merecen más un programa?
+  
+  - A priori, ¿Cuánto sabemos acerca de la efectividad del programa?
+  
+- Si no hay suficientes recursos para ofrecer el programa a todos y, hasta cierto punto, no es posible distinguir quién necesita más el programa, entonces se puede argumentar que .orange[la asignación aleatoria es lo más justo]
+
+- Cuando sabemos muy poco acerca de la efectividad de un programa (de modo que no es evidente que T es mejor que C), la asignación aleatoria puede justificarse por los beneficios que traería .orange[aprender sobre la efectividad del programa]... incluso si los recursos alcanzaran para atender a todos (ejemplo: vacunas).
+
+- Entonces, **la aleatorización no es intrínsecamente ética o no ética. Todo depende de la situación**.
+
+## Experimento ideal
+
+Incluso si un experimento no es factible, Angrist & Pischke (2009) recomiendan pensar en el "experimento ideal" a la hora de diseñar una evaluación de impacto.
+
+- Métodos no experimentales de identificación causal buscan situaciones en las que la asignación del tratamiento sea *"as-good-as-random"*.
+
+- Algunos le llaman a estos métodos: métodos cuasi-aleatorios/cusi-experimentales.
+
+Veremos algunos la próxima sesión...
+
+## Extra: Poder estadístico en un experimento
+
 Proximamente...
+
+
+
+ 
