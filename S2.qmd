@@ -152,7 +152,7 @@ $$\begin{split}ATE = E[\tau_i] & = \pi\cdot E[\tau_i|D_i=1]+(1-\pi)\cdot E[\tau_
 Entonces: 
 
 $$SDM = ATE+\underset{\text{Heterogeneous Treatment Effect Bias}}{\underbrace{(1-\pi)\cdot (ATT-ATU)}}+\underset{\text{Selection Bias}}{\underbrace{\big\{E[Y_i^0|D_i=1]-E[Y_i^0|D_i=0]\big\}}}$$
-- Para que el SDM identifique el $ATE$, tenemos que .orange[suponer]:$$E[Y_i^0|D_i]=E[Y_i^0] \quad \text{y} \quad E[\tau_i|D_i]=E[\tau_i]$$
+- Para que el SDM identifique el $ATE$, tenemos que suponer: $E[Y_i^0|D_i]=E[Y_i^0] \quad \text{y} \quad E[\tau_i|D_i]=E[\tau_i]$
 - Una condición suficiente es $(Y_i^0,Y_i^1)\perp D_i$
 
 **¿Cuándo tenemos problemas?**
@@ -359,7 +359,7 @@ Más allá del contexto actual, existe un debate en cuanto a si este tipo de tec
   - 314 en T
   - 305 en C
   
-- Atrición de 15% para los tratados y de 90% para los controles. 
+- Atrición de 15% para los tratados y de 10% para los controles. 
 
 
 **¿Supuestos?**
@@ -404,9 +404,9 @@ Más allá del contexto actual, existe un debate en cuanto a si este tipo de tec
   
   - A priori, ¿Cuánto sabemos acerca de la efectividad del programa?
   
-- Si no hay suficientes recursos para ofrecer el programa a todos y, hasta cierto punto, no es posible distinguir quién necesita más el programa, entonces se puede argumentar que .orange[la asignación aleatoria es lo más justo]
+- Si no hay suficientes recursos para ofrecer el programa a todos y, hasta cierto punto, no es posible distinguir quién necesita más el programa, entonces se puede argumentar que **la asignación aleatoria es lo más justo**
 
-- Cuando sabemos muy poco acerca de la efectividad de un programa (de modo que no es evidente que T es mejor que C), la asignación aleatoria puede justificarse por los beneficios que traería .orange[aprender sobre la efectividad del programa]... incluso si los recursos alcanzaran para atender a todos (ejemplo: vacunas).
+- Cuando sabemos muy poco acerca de la efectividad de un programa (de modo que no es evidente que T es mejor que C), la asignación aleatoria puede justificarse por los beneficios que traería **aprender sobre la efectividad del programa**... incluso si los recursos alcanzaran para atender a todos (ejemplo: vacunas).
 
 - Entonces, **la aleatorización no es intrínsecamente ética o no ética. Todo depende de la situación**.
 

@@ -16,14 +16,14 @@ Tendremos tres sesiones:
 
 [Sesión 1](https://jdconejeros.github.io/MIMIS-WKs2024.github.io/S1.html): **Problema fundamental de la inferencia causal y repaso de regresión lineal**. 
 
-Lunes 04/11 de 18:00 – 20:30 hrs
+Lunes 04/11 de 18:00 – 20:00 hrs
 
 [Sesión 2](https://jdconejeros.github.io/MIMIS-WKs2024.github.io/S2.html): **Diseños experimentales: aleatorización, diseño de bloques y cálculos de poder**. 
 
-Lunes 11/11 de 18:00 – 20:30 hrs
+Lunes 11/11 de 18:00 – 20:00 hrs
 
 [Sesión 3](https://jdconejeros.github.io/MIMIS-WKs2024.github.io/S3.html): **Técnicas con datos observacionales: matching y variables instrumentales**. 
-Lunes 18/11 de 18:00 – 20:30 hrs
+Lunes 18/11 de 18:00 – 20:00 hrs
 
 ## Referencias 
 
