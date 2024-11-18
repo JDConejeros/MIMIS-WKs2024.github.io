@@ -30,4 +30,277 @@ abstract-title: "Facultad de Ciencias Sociales e Historia UDP"
 abstract: "[Click al repositorio](https://github.com/JDConejeros/MIMIS-WKs2024.github.io)"
 ---
 
-Proximamente...
+## El estimador ingenuo 
+
+La diferencia simple de medias observadas para personas tratadas y no tratadas se llama el estimador ingenuo (Naive estimator) del efecto de un tratamiento: 
+
+$$\tau^{N} = E[Y_{1i}|T]- E[Y_{0i}|C]$$
+Donde: 
+
+- $E[Y_{1i}|T]$: Promedio del resultado bajo tratamiento para la persona $i$ en el grupo de tratamiento
+- $E[Y_{0i}|C]$: Promedio del resultado bajo control para la persona $i$ en el grupo de control
+
+¿Podemos observar ambos términos $E[Y_{1i}|T]$ y $E[Y_{0i}|C]$?
+
+Recuerde que el ATE: 
+$$\tau^{ATE} = E[Y_{1i}] - E[Y_{0i}]$$
+
+Usar el estimador ingenuo para obtener ATE asume entonces:
+
+- $E[Y_{1i}]=E[Y_{1i}|T]$
+- $E[Y_{0i}]=E[Y_{0i}|C]$
+
+Esto no toma en cuenta **cómo los individuos llegaron a pertenecer a esos grupos**. Este supuesto implica que el estimador es ingenuo porque ignora el **problema de selección**.
+
+## El problema de la autoselección 
+
+La asignación a los grupos no es aleatoria, sino que **depende de características observables o no observables de los individuos**. Esto afecta la asunción de ignorabilidad o de independencia condicional, que requiere que el tratamiento sea independiente del potencial resultado.
+
+
+- El problema de selección se genera principalmente porque sólo podemos observar algunas personas bajo tratamiento
+  
+- Las personas que participan en un programa son diferentes a aquellas que no participan
+  
+- Las personas que participan en un programa son también diferentes a si mismas previo al inicio del programa
+
+**¿Ejemplos?** 
+
+La pregunta clave detrás del problema de selección es: ¿Por qué estas personas fueron tratadas y otras no?
+
+::: {.callout-important title="Problema de la autoselección"}
+Bajo el problema de selección, los supuesto detrás del estimador ingenuo son cuestionables: Los resultados para los individuos no tratados son probablemente un mal estimador del estado contrafactual de estos mismos individuos. 
+:::
+
+Tenemos dos tipos de autoselección: 
+
+- **Selección en Observables**: Participantes son diferentes a los no participantes en características observables, i.e. edad o nivel de educación. Estas características son medibles y por eso las llamamos observables.  
+
+- **Selección en No-Observables**: Participantes son diferentes a los no participantes en características no observables, i.e. aversión al riesgo, habilidad inherente, motivación. En general no tenemos o no podemos medir estas variables y tenerlas en nuestros datos.
+
+## Métodos para abordar el problema de la autoselección 
+
+El estimador ingenuo tiene supuestos fuertes que no se sostienen y son comunes:
+
+- Comparar un mismo grupo antes y después del programa 
+- Comparar en un mismo periodo personas en distintos grupos
+
+¿Qué métodos utilizar para poder corregir este problema? 
+
+- **Selección en observables**
+
+  - OLS o MICO (control estadístico)
+  - **Matching y Propensity Score Matching**
+
+- Selección en No-observables
+
+  - Datos de panel y diferencias en diferencias
+  - **Variables instrumentales**
+  - Regresión discontinua
+
+## DAGS
+
+Un DAG (Directed Acyclic Graph) es una representación gráfica utilizada en estadística causal para modelar relaciones de dependencia y causalidad entre variables. 
+
+- Dirigido (Directed): Las flechas indican una dirección causal de una variable hacia otra (causa → efecto).
+
+- Acrónimo (Acyclic): No hay ciclos en el gráfico; es decir, no puedes empezar en un nodo y volver al mismo nodo siguiendo las flechas.
+
+- Nodos: Representan las variables.
+
+- Aristas (Edges): Representan relaciones causales directas entre variables.
+
+![](images/S3/dag.png){width="400" height="200" fig-align="center"}
+
+- Hay un camino directo desde D a Y que representa un efecto causal.
+
+- Pero también hay un segundo camino desde D a Y llamado el "camino de la puerta trasera"
+
+- Esto crea correlaciones espurias entre D y Y (sesgo por variable omitida)
+
+
+## Matching
+
+### Idea general 
+
+A veces sabemos que los resultados potenciales son independientes del tratamiento (D) condicional en ciertas características observables (X)
+$$(Y^1, Y^0) \perp \!\!\! \perp D | X$$
+
+Esto quiere decir que el valor de $Y^1$ e $Y^0$ son iguales para tratamiento y control para cada valor de $X$
+$$E[Y^1|D=1, X]=E[Y^1|D=0, X]$$
+
+$$E[Y^0|D=1, X]=E[Y^0|D=0, X]$$
+
+Veamos un ejemplo de Tabaquismo y cancer de pulmón: 
+
+![](images/S3/tabaco1.png){width="500" height="200" fig-align="center"}
+
+- ¿Qué sugiere la Tabla?
+
+- ¿Creemos que $E[Y^1|Cigarette)]=E[Y^1|Pipe)]=E[Y^1|Cigar)]$ y $E[Y^0|Cigarette)]=E[Y^0|Pipe)]=E[Y^0|Cigar)]$?
+
+Considere que la gente mayor tiene mayor probabilidad de fumar pipa y puro:
+
+
+![](images/S3/tabaco2.png){width="500" height="200" fig-align="center"}
+
+- Podemos condicionar en edad de tal manera que la distribución de edad sea idéntica en el grupo de tratamiento y control.
+
+
+**Subclassification:** ¿Cuál es la mortalidad ajustada de los fumadores, de manera que tengan la misma distribución etaria de quienes fuman pipa y puro?
+
+![](images/S3/tabaco3.png){width="500" height="300" fig-align="center"}
+
+![](images/S3/tabaco4.png){width="500" height="200" fig-align="center"}
+
+**¿Qué variables deberíamos utilizar para este ajuste?**
+
+### Supuestos de identificación causal 
+
+- Independencia condicional: La asignación al tratamiento ($D$) es independiente de los resultados potenciales ($Y^1, Y^0$). Cualquier diferencia en los resultados entre tratados y no tratados puede explicarse completamente por las covariables $X$, y no hay confusión residual.
+$$(Y^1, Y^0) \perp \!\!\! \perp D | X$$
+
+- Zona de soporte comun: Para cualquier valor de las covariables $X$, existe una probabilidad positiva de estar en el grupo tratado (D=1) y en el no tratado (D=0).
+$$0<Pr(D=1|X)<1$$
+
+A partir de estos dos supuestos podemos obtener la siguiente identidad:
+$$E[Y^1-Y^0| X]=E[Y|X,D=1]-E[Y|X, D=0]$$
+
+**Matching exacto**
+
+El estimador de Matching $\hat \beta_{ATT}$ utilizando como contrafactual los resultados de individuos del grupo de control que son similares en sus observables.
+
+Promedia la diferencia entre el resultado observado en los tratados y el promedio de los resultados emparejados de los no tratados. Estima el efecto del tratamiento específicamente en aquellos que recibieron el tratamiento.
+
+$$\hat\beta_{ATT}=\frac{1}{N_T}\sum_{D_i=1}\left(Y_i\left[\frac{1}{M}\sum^M_{m=1}Y_{jm(1)}\right]\right)$$
+ Calcula la diferencia promedio ponderada entre los tratados y no tratados ajustando por el contrafactual promedio. Estima el efecto promedio del tratamiento en toda la población, no solo en los tratados.
+
+$$\hat\beta_{ATE}=\frac{1}{N_T}\sum^N_{i=1}(2D_i-1)\left(Y_i-\left[\frac{1}{M}\sum^M_{m=1}Y_{jm(1)}\right]\right)$$
+
+**Un ejemplo**
+
+![](images/S3/match.png){width="500" height="300" fig-align="center"}
+
+- ¿Cual es la edad promedio de los capacitados y de los no capacitados?
+
+- ¿Son comparables ambos grupos?
+
+- Haga un exact matching en edad, ¿Cuál es el impacto del programa?
+
+### La maldición de la dimensionalidad
+
+En el ejemplo anterior era fácil encontrar un match con la misma edad, pero esto no es siempre así. A medida que crece el número de variables incluidas en $X$, se hace cada vez más difícil encontrar parejas. A esto se le conoce como **la maldición de la dimencionalidad**.
+
+![](images/S3/match2.png){width="600" height="500" fig-align="center"}
+
+![](images/S3/match3.png){width="600" height="500" fig-align="center"}
+
+**Matching aproximado**
+
+- En lugar de buscar parejas en el mismo estrato (con las mismas características), buscamos parejas con características similares
+
+- Una posibilidad es usar al **vecino más cercano**-
+
+- Si $X$ es el ingreso de los padres, y una persona tratada tiene padres con ingresos de CLP1.123, su match puede ser la unidad de control cuyos padres tienen el ingreso más cercano a CLP1.123 (por ejemplo, CLP1.380)
+
+- También se puede usar los **n vecinos más cercanos**.
+
+**¿Qué pasa si $X$ tiene varias dimensiones?**
+
+- $X$ podría incluir edad, ingreso de los padres, región, etc.
+
+- En estos casos no es obvia la manera de identificar al vecino más cercano
+
+- Para encontrar un *match* necesitamos definir una métrica de distancia
+
+- La más simple es la distancia euclideana:
+$$\begin{split}||X_i-X_j|| & = \sqrt{(X_i-X_j)'(X_i-X_j)} \\ & = \sqrt{\sum_{k=1}^K(X^k_i-X^k_j)^2}\end{split}$$
+- Otra métrica común es la **distancia euclideana normalizada** que le da un peso mayor a las dimensiones con menor varianza:
+$$\begin{split}||X_i-X_j|| & = \sqrt{(X_i-X_j)'\hat V^{-1}(X_i-X_j)} \\ & = \sqrt{\sum_{k=1}^K\frac{(X^k_i-X^k_j)^2}{\hat \sigma^2_k}}\end{split}$$
+
+- Finalmente, la **distancia de Mahalanobis** que normaliza usando la matriz de varianza-covarianza de $X$:
+$$\begin{split}||X_i-X_j|| & = \sqrt{(X_i-X_j)'\hat \Sigma_X^{-1}(X_i-X_j)} \end{split}$$
+
+**Usando métricas como las anteriores, podemos identificar al vecino más cercano o a los $n$ vecinos más cercanos**-
+
+Hay muchas otras medidas de distancia. Lo bueno es que ya hay paquetes y algoritmos programados para realizar esto. 
+
+### Propensity Score Matching (PSM)
+
+El *propensity score* es la probabilidad de recibir un tratamiento condicional en $X$:
+$$p(X_i) = Pr(D_i=1|X_i)$$
+- Rosembaum & Rubin (1983) muestran que el *propensity score* es un *balancing score*, es decir:
+$$Pr(D_i=1|X_i,p(X_i))=Pr(D_i=1|p(X_i))$$
+
+**Implementación**: podemos estimar en dos etapas: 
+
+- En una primera etapa se estima el propensity score usando un modelo *probit* o *logit*.
+  
+- En una segunda etapa, se hace un matching aproximado en base a $\hat p(X_i)$
+  
+- El método sigue descansando en el supuesto de independencia condicional. Si el supuesto no se cumple, **PSM** no identifica efectos causales.
+
+**Ejemplo: NSW job-training program**
+
+- El NSW fue un programa de capacitación laboral implementado en EE.UU. a mediados de los 70 y garantizaba empleo por 9 a 18 meses, además de sesiones de acompañamiento.
+
+- Los trabajadores recibían un sueldo algo menor que el de mercado, pero con posibilidades de aumentarlo en base a desempeño y asistencia. Luego de finalizado el período los trabajadores debían buscar empleo por su cuenta.
+
+- Los cupos del programa eran limitados y se asignaron en forma aleatoria, lo que permitió una evaluación experimental.
+
+- El programa aumentó el ingreso de los participantes entre USD900 (Lalonde, 1986) y USD1.800 (Dehejia and Whaba, 2002). 
+
+**Lalonde (1986)** aprovechó la disponibilidad de este experimento para comparar los resultados experimentales con otros métodos no-experimentales que se usaban comúnmente en la época. Además del grupo de control experimental, Lalonde construyó otros grupos de comparación usando datos de la *Current Population Survey* (CPS) y de la *Panel Survey of Income Dynamics* (PSID). A partir de estas muestras el paper compara los resultados experimentales (insesgados) con resultados no experimentales.
+
+
+![](images/S3/lalonde_1.png){width="500" height="250" fig-align="center"}
+
+El resultado de Lalonde se recibió como una alerta para la interpretación de estudios no-experimentales y el paper empujó el desarrollo de evaluaciones experimentales.
+
+**Dehejia & Wahba (1999)** señalaron que cuando uando existe sesgo de selección, es común que las características de base difieran entre individuos tratados y no tratados. Ellos llamaron la atención sobre el hecho de que los grupos de comparación no experimentales utilizados por Lalonde diferían considerablemente del grupo de tratamiento, lo que podría sesgar sus resultados. 
+
+Sabemos que la diferencia simple de medias entre tratados y no tratados es problemática producto del sesgo de selección:
+$$E[Y^0_i|D_i=1]\neq E[Y^0_i|D_i=0]$$
+**¿Por qué podríamos tener sesgo de selección en el caso del programa de capacitación NSW?**
+
+![](images/S3/tab1l.png){width="500" height="300" fig-align="center"}
+
+Usando los mismos datos que Lalonde (1986) (además de otras muestras), Dehejia & Wahba (1999) re-estimaron el efecto del programa usando propensity score.
+
+![](images/S3/fig1l.png){width="500" height="400" fig-align="center"}
+
+Balance usando la muestra de *matches*:
+
+![](images/S3/dw_5.png){width="600" height="300" fig-align="center"}
+
+Estimaciones:
+
+![](images/S3/tab2l.png){width="600" height="500" fig-align="center"}
+
+### Propensity Score Weighting
+
+Figura realizada por [Estrin (2021)](https://aetion.com/evidence-hub/rwe-platform-build-regulatory-grade-ecas/):  
+
+![](images/S3/estrin_psw.png){width="600" height="400" fig-align="center"}
+
+El estimador de propensity score weighting para el ATT es el siguiente:
+
+$$\hat\tau_{att}^{psw} = \frac{1}{N_T}\sum_iY_i\cdot \frac{D_i-P(X_i)}{1- P(X_i)}$$
+
+- En este caso, las unidades tratadas reciben una ponderación de 1.
+
+- Las unidades no tratadas, por su parte, reciben una ponderación $\frac{P(X_i)}{1-P(X_i)}$.
+
+- A nivel intuitivo, la idea es que luego de la ponderación, el grupo de comparación sea similar al grupo de tratamiento.
+
+- Para esto se da mayor ponderación a unidades que son "escasas" en el grupo de control en comparación con el grupo de tratamiento.
+
+### Consideraciones finales 
+
+- La popularidad del matching depende bastante de la disciplina.La mayoría de los académicos son escépticos de que el supuesto de CIA se cumpla en la práctica.
+
+- En general los economistas (y las ciencias sociales en general) están más preocupados de la selección en **no observables que la selección en observables**, por lo que en la práctica debemos evaluar cada caso en particular para decidir si es razonable el supuesto de CIA.
+
+## Variables instrumentales 
+
+
+
