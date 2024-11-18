@@ -300,7 +300,175 @@ $$\hat\tau_{att}^{psw} = \frac{1}{N_T}\sum_iY_i\cdot \frac{D_i-P(X_i)}{1- P(X_i)
 
 - En general los economistas (y las ciencias sociales en general) están más preocupados de la selección en **no observables que la selección en observables**, por lo que en la práctica debemos evaluar cada caso en particular para decidir si es razonable el supuesto de CIA.
 
-## Variables instrumentales 
+## Variables instrumentales (IV)
+
+### Intuición 
+
+Supongamos que nos interesa estudiar el efecto causal de $x$ sobre $y$, representado por $\beta$ en la siguiente regresión:
+$$y_i = \alpha + \beta x_i +\varepsilon_i$$
+
+Sabemos que el estimador $\beta$ en OLS identifica:
+$$\begin{split}\hat \beta_{ols} & =\frac{Cov(y_i, x_i)}{Var(x_i)} = \frac{Cov(\alpha + \beta x_i + \varepsilon_i , x_i)}{Var(x_i)} \\\\& = \frac{\beta Var(x_i)+Cov(\varepsilon_i,x_i)}{Var(x_i)}=\beta+\frac{Cov(\varepsilon_i,x_i)}{Var(x_i)}\end{split}$$
+
+Para que $\hat \beta_{ols}$ identifique el verdadero $\beta$, es necesario suponer que $x_i$ es exógena, esto es: $$Cov(x_i,\varepsilon_i)=0$$
+
+::: {.callout-important title="Problema"}
+Si tenemos selección sobre no observables, entonces no contamos con una estrategia de condicionamiento que nos permita estimar efectos causales.
+
+$$Cov(x_i,\varepsilon_i)\neq0$$
+:::
+
+Fuentes de endogeneidad: 
+
+- **Variables omitidas**: una variable no observada afecta de forma simultánea a $y_i$ y $x_i$
+
+- **Error de medición**: la variable $x_i$ se mide con error
+
+- **Causalidad inversa**: hay una relación causal entre $y_i$ y $x_i$
+
+En este caso podemos utilizar variables instrumentales: una fuente de variación exógena... alguna variable que afecte a $x_i$ pero que no se relacione con $\varepsilon_i$. 
+
+![](images/S3/iv1.png){width="600" height="300" fig-align="center"}
+
+En estos casos podemos utilizar variables instrumentales:
+
+- Una variable instrumental $Z$ que afecta a $D$ 
+
+- $Z$ afecta a $Y$ "sólo a través" de $D$
+
+- $Z$ es independiente de las variables que determinan $Y$ excepto $D$ ("restricción de exclusión")
+
+Las variables instrumentales sólo identifican un efecto causal para cualquier grupo de unidades cuyos comportamientos cambien como resultado del instrumento (cumplidores).
+
+![](images/S3/iv_dag.png){width="500" height="250" fig-align="center"}
+
+### Buenos instrumentos 
+
+Sólo se puede contemplar la identificación de un efecto causal mediante variables instrumentales si se puede defender teórica y lógicamente el supuesto de restricción de exclusión (no es comprobable).
+
+- Buscar buenos instrumentos en general es difícil 
+
+- ¿Qué buen instrumento podemos usar para identificar el efecto causal del número de hijos sobre la participación laboral femenina?
+
+Una condición necesaria pero no suficiente para tener un instrumento que pueda satisfacer la restricción de exclusión es que las personas se sientan confundidas cuando se les informa acerca de la relación del instrumento con el resultado. 
+
+**¿Qué pensarían si les dijeras que las madres cuyos dos primeros hijos son del mismo género tienen menos empleo fuera del hogar que aquellas cuyos dos hijos tienen una proporción de sexos equilibrada?**
+
+### Efectos de tratamiento homogéneos
+
+Sea el verdadero modelo de los ingresos a partir de la escolaridad:
+$$Y_i=\alpha + \beta S_i + \gamma A_i + \varepsilon_i$$
+
+Con $A=E[A_i]$ y $E[\varepsilon_i|s_i]=E[\varepsilon_i]=0.$
+
+- $Y_i$ es el registro de los ingresos
+- $S_i$ es la escolaridad medida en años
+- $A_i$ es la "habilidad o capacidad" individual
+- $\varepsilon$ es un término de error no correlacionado con la escolaridad o la capacidad. 
+
+La habilidad es una variable no observada, por lo que tenemos la siguiente ecuación: 
+$$Y_i=\alpha + \beta S_i + \nu_i$$
+
+Donde $\nu_i=\gamma A_i + \varepsilon_i$
+
+A partir de OLS podemos obtener el siguiente estimador para $\beta$: 
+$$\hat \beta_{ols}=\frac{Cov(Y_i, S_i)}{Var(S_i)} = \frac{Cov(\beta S_i + \gamma A_i, S_i)}{Var(S_i)} = \frac{\beta Var(S_i)+Cov(A_i,S_i)}{Var(S_i)}=\beta+\frac{Cov(A_i,S_i)}{Var(S_i)}$$
+
+Para que $\hat \beta_{ols}$ identifique el efecto marginal de un año de educación $S$, es necesario suponer que la escolaridad $S_i$ es exógena, esto es: 
+
+$$Cov(A_i,S_i)=0$$
+
+**¿Por qué podría no cumplirse el supuesto?**
+
+- Es probable que el nivel de escolaridad se determine en forma óptima, y que dependa de la habilidad (no observada) $A_i$ y de otros factores, resumidos en $\nu_i$, por lo tanto:
+
+$$S_i = S(A_i,\nu_i)$$
+
+- **Variable omitida:** Si la escolaridad depende de $A_i$, entonces $Cov(S_i,A_i)\neq 0$. 
+
+  - Es posible que personas con $A_i$ alto tengan un costo de oportunidad alto de educarse (tienen que sacrificar mayores ingresos) y que por lo tanto se eduquen menos. 
+  
+  - También es posible que personas con mayor habilidad tengan mayores facilidades para estudiar y que por esto elijan estudiar durante más años
+  
+  - El sesgo podría ir en cualquier dirección
+  
+- **Causalidad inversa:** No debiéramos ver un efecto retroactivo desde los ingresos hacia la escolaridad, por lo que la causalidad inversa no debería ser un problema en este caso.
+
+- Lo que necesitamos es una **fuente de variación exógena**... alguna variable que afecte a $x_i$, pero que no se relacione con $\varepsilon_i$
+
+- Supongamos por ejemplo que tenemos una variable $Z_i$ que afecta a $S_i$ pero no está correlacionada con $A_i$
+
+Es decir: 
+
+![](images/S3/iv_dag2.png){width="500" height="350" fig-align="center"}
+
+- $Cov(Z_i, S_i)\neq0$
+- $Cov(Z_i, A_i)=0$
+
+### Estimador de variables instrumentales
+
+¿Cuál es la covarianza entre $Y_i$ y $A_i$?
+$$Cov(Y_i,Z_i) = Cov(\alpha +\beta S_i + \gamma A_i + \varepsilon_i, Z_i)= \beta\cdot Cov(S_i, Z_i)+ \gamma\cdot\underset{=0}{\underbrace{Cov(A_i,Z_i)}}=\beta\cdot Cov(S_i, Z_i)$$
+
+De modo que 
+$$\hat \beta_{IV} = \frac{Cov(Y_i,Z_i)}{Cov(S_i,Z_i)} = \beta$$
 
 
+### Supuestos de identificación 
 
+**Relevancia o First Stage**: un instrumento es relevante si efectivamente tiene un efecto sobre la variable endógena $S_i$. 
+$$Cov(S_i, Z_i)\neq0$$
+
+![](images/S3/iv2.png){width="500" height="350" fig-align="center"}
+
+Este supuesto es necesario para que $\frac{Cov(y_i,z_i)}{Cov(s_i,z_i)}$ esté definido. 
+
+**Restricción de exclusión**: Este supuesto requiere que el instrumento $Z_i$ no afecte directamente el outcome $Y_i$, sino solo por medio de afectar la variable endógena $S_i$.
+  
+Este es un supuesto acerca de la relación entre una variable observada $(Z_i)$ y una variable no observable $(A_i)$. Como tal, **no es posible testearlo**.
+
+Para defender la validez del instrumento es necesario recurrir a **argumentos teóricos** (no empíricos).
+
+![](images/S3/iv3.png){width="500" height="350" fig-align="center"}
+
+**Independencia**
+
+**SUTVA**: los resultados potenciales de cada persona i no están relacionados con el estado de tratamiento de otros individuos.
+
+**Monotonicidad**: la variable instrumental opera (débilmente) en la misma dirección en todas las unidades individuales.
+
+
+### Mínimos cuadrados en 2 etapas (2SLS)
+
+El estimador de variables instrumentales lo podemos escribir como:
+$$\hat \beta_{IV}=\frac{Cov(Y_i,Z_i)}{Cov(S_i,Z_i)} = \frac{Cov(Y_i,Z_i)/Var(Z_i)}{Cov(S_i,Z_i)/Var(Z_i)}= \frac{\hat \beta_{ols}^{y,z}}{\hat \beta_{ols}^{s,z}}$$
+- Es decir, el estimador de IV es igual a la división entre:
+
+  - El estimador OLS de una regresión de $Y_i$ en $Z_i$ **(forma reducida)**
+  - El estimador de OLS de una regresión de $S_i$ en $Z_i$ **(primera etapa)**
+
+Cuando tenemos un único instrumento, $\hat\beta_{IV}$ es equivalente al estimador de 2SLS:
+$$\hat \beta_{IV} = \frac{Cov(Y_i,Z_i)}{Cov(S_i,Z_i)}=\frac{Cov(Y_i,\hat S_i)}{Var(\hat S_i)}=\hat \beta_{2SLS},$$
+
+Donde $\hat S_i$ es el valor predicho de $S_i$ en base a una regresión OLS de $S_i$ en $Z_i$: 
+$$\hat s_i = \hat\pi_0+\hat\pi_1 z_i,\quad \hat\pi_1=\frac{Cov(s_i,z_i)}{Var(z_i)}$$
+  
+- Es decir, $\hat \beta_{2SLS}$ es el estimador de mínimos cuadrados de una regresión de $Y_i$ en la predicción $\hat S_i$
+
+**2SLS ayuda a entender la lógica de IV**
+
+El estimador de IV es equivalente a estimar por OLS una regresión entre $Y_i$ y el valor predicho de $S_i$ en base al instrumento $Z_i$:
+
+- En la **primera etapa**, estimamos el efecto causal de $Z_i$ sobre $A_i$.
+  
+- Luego, usamos el valor predicho de $S_i$ para en una **segunda etapa** estimar del efecto de $\hat S_i$ sobre $Y_i$.
+
+- $\hat S_i$ es una predicción hecha a partir de una variable exógena $Z_i$, por lo que está "limpia" de endogeneidad y por eso podemos usarla para estimar el efecto de $S_i$ sobre $Y_i$.
+
+En otras palabras, usamos una parte exógena de la variación en $S_i$ para identificar el efecto de $S_i$ sobre $Y_i$.
+
+### Palabras finales
+
+Queremos expresar nuestro más sincero agradecimiento por su asistencia y activa participación en el Workshop MIMIS-WKs 2024. Su entusiasmo, compromiso y valiosas contribuciones hicieron de este encuentro un espacio enriquecedor para el intercambio de ideas y el aprendizaje colaborativo. 
+
+Tanto en el Magíster en [Métodos para la Investigación Social](https://posgrados.udp.cl/programas/magister-en-metodos-para-la-investigacion-social/) y en el [Diplomado en Métodos Cuantitativos para la Investigación Social](https://posgrados.udp.cl/programas/diplomado-en-metodos-cuantitativos-para-la-investigacion-social/) se profundizan en estas y otras cosas más. ¡Nos vemos en otra oportunidad!
